@@ -9,13 +9,17 @@ public class Engine {
 	private GameEntity ge;
 	
 	public Engine(){
-		GameEntity rock = new GameEntity();
-		rock.AddComponent(new Visual());
-		//rock.AddComponent(new Physics());
+		ge = new GameEntity();
+		
+		RenderSystem rs = new RenderSystem();
+		ServiceLocator.AddService(rs);
+		SystemTemplate st = ServiceLocator.GetService(RenderSystem.class);
+		if (st != null)
+			st.Add(new Visual());
 	}
 	
 	public void Update(){
-		// foreach GameEntity -> ge.Update() ???
+		ServiceLocator.Update();
 	}
 	
 }
