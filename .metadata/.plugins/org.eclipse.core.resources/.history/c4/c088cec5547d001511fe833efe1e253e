@@ -1,0 +1,5 @@
+package game.architecture.entity;
+
+public class EntetyManager {
+
+}

@@ -15,4 +15,14 @@ public class GameEntity {
 	public void AddComponent(Component c){
 		components.add(c);
 	}
+	
+	public void Activate(){
+		for (Component c : components)
+			c.Activate();
+	}
+	
+	public void Deactivate(){
+		for (Component c : components)
+			c.Deactivate();
+	}
 }

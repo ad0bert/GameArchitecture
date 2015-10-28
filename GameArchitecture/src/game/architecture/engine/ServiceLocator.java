@@ -3,30 +3,34 @@ package game.architecture.engine;
 import java.util.ArrayList;
 import java.util.List;
 
+import game.architecture.systems.PhysicsSystem;
 import game.architecture.systems.RenderSystem;
 import game.architecture.systems.SystemTemplate;
 
 public final class ServiceLocator {
 
 	private static List<SystemTemplate> systems;
-	
-	private ServiceLocator(){
+
+	private ServiceLocator() {
 		systems = new ArrayList<SystemTemplate>();
+		AddService(new RenderSystem());
+		AddService(new PhysicsSystem());
 	}
-	
-	public static void AddService(SystemTemplate st){
+
+	private static void AddService(SystemTemplate st) {
 		systems.add(st);
 	}
-	public static SystemTemplate GetService(Class<RenderSystem> c){
-		for (SystemTemplate st : systems){
+
+	public static SystemTemplate GetService(Class c) {
+		for (SystemTemplate st : systems) {
 			if (st.getClass().equals(c))
 				return st;
 		}
 		return null;
 	}
-	
-	public static void Update(){
-		for (SystemTemplate st : systems)
-			st.Update();
-	}
+
+//	public static void Update() {
+//		for (SystemTemplate st : systems)
+//			st.Update();
+//	}
 }

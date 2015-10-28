@@ -8,8 +8,7 @@ public class RenderSystem extends SystemTemplate {
 	public void Update() {
 		for (Component c : comps){
 			c.Update();
-		}
-		
+		}	
 	}
 
 	@Override

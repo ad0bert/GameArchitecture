@@ -6,20 +6,18 @@ public class PhysicsSystem extends SystemTemplate {
 
 	@Override
 	public void Update() {
-		// TODO Auto-generated method stub
-		
+		for (Component p : comps)
+			p.Update();
 	}
 
 	@Override
 	public void Add(Component c) {
-		// TODO Auto-generated method stub
-		
+		comps.add(c);
 	}
 
 	@Override
 	public void Remove(Component c) {
-		// TODO Auto-generated method stub
-		
+		comps.remove(c);
 	}
 
 }

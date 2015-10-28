@@ -1,0 +1,28 @@
+package game.architecture.engine;
+
+import game.architecture.components.GameLogic;
+import game.architecture.components.Physics;
+import game.architecture.components.Visual;
+import game.architecture.entity.GameEntity;
+
+public class Engine {
+	private GameEntity Player;
+
+	public Engine() {
+
+	}
+
+	public void init() {
+		Player = new GameEntity();
+		Player.AddComponent(new Visual());
+		Player.AddComponent(new Physics());
+		Player.AddComponent(new GameLogic());
+		// --------------------------------------
+
+	}
+
+	public void Update() {
+		// foreach GameEntity -> ge.Update() ???
+	}
+
+}

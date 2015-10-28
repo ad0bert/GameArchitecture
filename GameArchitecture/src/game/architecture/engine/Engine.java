@@ -1,21 +1,36 @@
 package game.architecture.engine;
 
+import game.architecture.components.GameLogic;
+import game.architecture.components.Physics;
 import game.architecture.components.Visual;
+import game.architecture.entity.EntityManager;
 import game.architecture.entity.GameEntity;
-import game.architecture.systems.RenderSystem;
-import game.architecture.systems.SystemTemplate;
 
 public class Engine {
-	private GameEntity ge;
+	private EntityManager Level1;
+	private GameEntity World;
+	private GameEntity Player;
 	
-	public Engine(){
-		GameEntity rock = new GameEntity();
-		rock.AddComponent(new Visual());
-		//rock.AddComponent(new Physics());
+	
+	public Engine() {
+		init();
 	}
-	
-	public void Update(){
-		// foreach GameEntity -> ge.Update() ???
+
+	public void init() {
+		Level1 = new EntityManager();
+		// --------------------------------------
+		World = new GameEntity();
+		World.AddComponent(new GameLogic());
+		World.AddComponent(new Visual());
+		Level1.AddEntity(World);
+		// --------------------------------------
+		Player = new GameEntity();
+		Player.AddComponent(new Visual());
+		Player.AddComponent(new Physics());
+		Player.AddComponent(new GameLogic());
+		Level1.AddEntity(Player);
+		// --------------------------------------
+
 	}
-	
+
 }

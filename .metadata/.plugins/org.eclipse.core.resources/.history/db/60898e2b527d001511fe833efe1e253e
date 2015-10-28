@@ -1,0 +1,7 @@
+package game.architecture.components;
+
+public class Component {
+	public void Update();
+	public void Activate();
+	public void Deactivate();
+}

@@ -1,7 +1,15 @@
 package game.architecture.components;
 
 public abstract class Component {
+	protected boolean IsActive = true;
+	
 	public abstract void Update();
-	public abstract void Activate();
-	public abstract void Deactivate();
+	
+	public void Activate(){
+		IsActive = true;
+	}
+	
+	public void Deactivate(){
+		IsActive = false;
+	}
 }
