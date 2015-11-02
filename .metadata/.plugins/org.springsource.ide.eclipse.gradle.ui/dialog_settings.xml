@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.springsource.ide.eclipse.gradle.ui.cli.inplace.ConsoleInplaceDialog">
+		<item value="390" key="size.width"/>
+		<item value="78" key="size.height"/>
+		<item value="572" key="location.x"/>
+		<item value="343" key="location.y"/>
+	</section>
+</section>

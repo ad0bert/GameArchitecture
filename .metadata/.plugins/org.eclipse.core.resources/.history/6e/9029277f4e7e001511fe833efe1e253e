@@ -1,4 +1,4 @@
-	package game.architecture.engine;
+package game.architecture.engine;
 
 import game.architecture.components.GameLogic;
 import game.architecture.components.Physics;

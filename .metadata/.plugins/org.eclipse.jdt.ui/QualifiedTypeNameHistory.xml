@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="game.architecture.engine.ServiceLocator"/>
+<fullyQualifiedTypeName name="game.architecture.systems.RenderSystem"/>
+<fullyQualifiedTypeName name="game.architecture.systems.PhysicsSystem"/>
+<fullyQualifiedTypeName name="game.architecture.components.Component"/>
+<fullyQualifiedTypeName name="javax.swing.text.html.parser.Entity"/>
+<fullyQualifiedTypeName name="game.architecture.components.GameLogic"/>
+<fullyQualifiedTypeName name="game.architecture.entity.EntityManager"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="game.architecture.components.Physics"/>
+</qualifiedTypeNameHistroy>
