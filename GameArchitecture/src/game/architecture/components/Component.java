@@ -8,7 +8,7 @@ public abstract class Component {
 	public void Activate(){
 		IsActive = true;
 	}
-	
+	// it says deactivate
 	public void Deactivate(){
 		IsActive = false;
 	}
