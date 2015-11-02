@@ -1,0 +1,11 @@
+package game.architecture.components;
+
+public interface Pose {
+	public float GetXPos();
+	public float GetZPos();
+	public float GetYPos();
+	
+	public void SetXPos();
+	public void SetZPos();
+	public void SetYPos();
+}

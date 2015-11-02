@@ -19,7 +19,5 @@ public class RenderSystem extends SystemTemplate {
 	@Override
 	public void Remove(Component c) {
 		comps.remove(c);
-		
 	}
-
 }

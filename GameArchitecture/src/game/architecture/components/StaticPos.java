@@ -2,22 +2,44 @@ package game.architecture.components;
 
 public class StaticPos extends Component implements Pose{
 
+	// TODO: make vector class
+	private float xPos;
+	private float yPos;
+	private float zPos;
+	
 	@Override
 	public void Update() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
-	public void calc() {
-		// TODO Auto-generated method stub
-		
+	public float GetXPos() {
+		return xPos;
 	}
 
 	@Override
-	public void update() {
-		if (!IsActive) return;
-		
+	public float GetZPos() {
+		return zPos;
+	}
+
+	@Override
+	public float GetYPos() {
+		return yPos;
+	}
+
+	@Override
+	public void SetXPos(float x) {
+		xPos = x;
+	}
+
+	@Override
+	public void SetZPos(float z) {
+		zPos = z;
+	}
+
+	@Override
+	public void SetYPos(float y) {
+		yPos = y;
 	}
 
 }

@@ -1,0 +1,24 @@
+package game.architecture.components;
+
+import game.architecture.engine.ServiceLocator;
+import game.architecture.systems.RenderSystem;
+
+public class Visual extends Component {
+
+	public Visual(){
+		
+	}
+	
+	@Override
+	public void Update() {
+		if (!IsActive) return;
+
+	}
+
+	@Override
+	public void AddToService() {
+		ServiceLocator.GetService(RenderSystem.class).Add(this);
+		
+	}
+
+}

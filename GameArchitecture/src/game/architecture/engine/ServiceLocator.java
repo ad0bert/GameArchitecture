@@ -10,8 +10,9 @@ import game.architecture.systems.SystemTemplate;
 public final class ServiceLocator {
 
 	private static List<SystemTemplate> systems;
-
-	private ServiceLocator() {
+	private static boolean isRunning = true;
+	
+	static {
 		systems = new ArrayList<SystemTemplate>();
 		AddService(new RenderSystem());
 		AddService(new PhysicsSystem());
@@ -29,8 +30,16 @@ public final class ServiceLocator {
 		return null;
 	}
 
-//	public static void Update() {
-//		for (SystemTemplate st : systems)
-//			st.Update();
-//	}
+	public static void Update() {
+		for (SystemTemplate st : systems)
+			st.Update();
+	}
+
+	public static boolean isRunning() {
+		return isRunning;
+	}
+
+	public static void setRunning(boolean isRunning) {
+		ServiceLocator.isRunning = isRunning;
+	}
 }

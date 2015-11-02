@@ -1,0 +1,52 @@
+package game.architecture.engine;
+
+import game.architecture.components.Component;
+import game.architecture.components.GameLogic;
+import game.architecture.components.Physics;
+import game.architecture.components.Visual;
+import game.architecture.entity.EntityManager;
+import game.architecture.entity.GameEntity;
+
+public class Engine {
+	private EntityManager Level1;
+	private GameEntity World;
+	private GameEntity Player;
+	
+	public Engine() {
+		Init();
+		GameLoop();
+	}
+
+	public void Init() {
+		Level1 = new EntityManager();
+		// --------------------------------------
+		World = new GameEntity();
+		Component WorldGL = new GameLogic();
+		WorldGL.AddToService();
+		World.AddComponent(WorldGL);
+		Component WorldV = new Visual();
+		WorldV.AddToService();
+		World.AddComponent(WorldV);
+		Level1.AddEntity(World);
+		// --------------------------------------
+		Player = new GameEntity();
+		Component PlayerV = new Visual();
+		PlayerV.AddToService();
+		Player.AddComponent(PlayerV);
+		Component PlayerPh = new Physics();
+		PlayerPh.AddToService();
+		Player.AddComponent(PlayerPh);
+		Component PlayerGL = new GameLogic();
+		PlayerGL.AddToService();
+		Player.AddComponent(PlayerGL);
+		Level1.AddEntity(Player);
+		// --------------------------------------
+		
+	}
+	
+	public void GameLoop(){
+		while(ServiceLocator.isRunning())
+			ServiceLocator.Update();
+	}
+
+}
