@@ -1,5 +1,0 @@
-package game.architecture.components;
-
-public interface Pose {
-
-}
