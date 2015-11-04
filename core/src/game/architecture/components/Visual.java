@@ -1,17 +1,13 @@
 package game.architecture.components;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import game.architecture.engine.ServiceLocator;
 import game.architecture.systems.RenderSystem;
 
 public class Visual extends Component {
 
-	private TextureAtlas ta;
 	private Texture texture;
 	private Pose pos;
 	
@@ -19,9 +15,9 @@ public class Visual extends Component {
 		ServiceLocator.GetService(RenderSystem.class).Add(this);
 	}
 	
-	public void AddTexture(String path){
-		ta = new TextureAtlas(Gdx.files.internal(path));
-		texture = ta.getRegions().first().getTexture();
+	public void AddTexture(Texture tex){
+		
+		texture = tex;
 	}
 	
 	public void AddPosition(Pose pos){

@@ -6,6 +6,7 @@ public class StaticPos extends Component implements Pose{
 	private float xPos;
 	private float yPos;
 	private float zPos;
+	private float angle;
 	
 	@Override
 	public float GetXPos() {
@@ -35,6 +36,15 @@ public class StaticPos extends Component implements Pose{
 	@Override
 	public void SetYPos(float y) {
 		yPos = y;
+	}
+
+	@Override
+	public float GetAngle() {
+		return angle;
+	}
+	@Override
+	public void SetAngle(float angle) {
+		this.angle = angle;
 	}
 
 }

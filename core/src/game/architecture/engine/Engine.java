@@ -2,7 +2,7 @@ package game.architecture.engine;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import game.architecture.components.Pose;
 import game.architecture.components.StaticPos;
@@ -21,14 +21,15 @@ public class Engine extends Game{
 		World = new GameEntity();
 		
 		Visual v = new Visual();
-		v.AddTexture("button.pack");
+		TextureAtlas ta = new TextureAtlas(Gdx.files.internal("button.pack"));
+		v.AddTexture(ta.getRegions().first().getTexture());
 		Pose pos = new StaticPos();
 		pos.SetXPos(100);
 		pos.SetYPos(100);
 		v.AddPosition(pos);
 		
 		Visual v2 = new Visual();
-		v2.AddTexture("button.pack");
+		v2.AddTexture(ta.getRegions().first().getTexture());
 		Pose pos1 = new StaticPos();
 		pos1.SetXPos(200);
 		pos1.SetYPos(200);
