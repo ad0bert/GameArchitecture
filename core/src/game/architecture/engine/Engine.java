@@ -1,7 +1,10 @@
 package game.architecture.engine;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import game.architecture.components.Pose;
@@ -9,27 +12,32 @@ import game.architecture.components.StaticRotatingPos;
 import game.architecture.components.Visual;
 import game.architecture.entity.EntityManager;
 import game.architecture.entity.GameEntity;
+import game.architecture.menu.MenuScreen;
+import game.architecture.menu.Workbench;
 
-public class Engine implements Screen{
-	private EntityManager Level1;
-	private GameEntity World;
-
-	public Engine(){
+public class Engine implements Screen, InputProcessor{
+	private EntityManager level1;
+	private GameEntity world;
+	private Workbench workbench;
+	
+	public Engine(Workbench w){
+		workbench = w;
 		Init();
+		Gdx.input.setInputProcessor(this);
 	}
 	
 	public void Init() {
-		Level1 = new EntityManager();
+		level1 = new EntityManager();
 		// --------------------------------------
 		
-		World = new GameEntity();
+		world = new GameEntity();
 		
 		Visual v = new Visual();
 		TextureAtlas ta = new TextureAtlas(Gdx.files.internal("atlas.pack"));
 		v.AddTexture(ta.findRegion("cog1"));
 		Pose pos = new StaticRotatingPos();
-		pos.SetXPos(200);
-		pos.SetYPos(200);
+		pos.SetXPos(-57);
+		pos.SetYPos(0);
 		pos.SetAngle(0);
 		((StaticRotatingPos)pos).setAngularSpeed(1);
 		v.AddPosition(pos);
@@ -37,8 +45,8 @@ public class Engine implements Screen{
 		Visual v2 = new Visual();
 		v2.AddTexture(ta.findRegion("cog1_shadow"));
 		Pose pos1 = new StaticRotatingPos();
-		pos1.SetXPos(257);
-		pos1.SetYPos(200);
+		pos1.SetXPos(0);
+		pos1.SetYPos(0);
 		pos1.SetAngle(12);
 		((StaticRotatingPos)pos1).setAngularSpeed(-1);
 		v2.AddPosition(pos1);
@@ -46,23 +54,23 @@ public class Engine implements Screen{
 		Visual v3 = new Visual();
 		v3.AddTexture(ta.findRegion("cog_n"));
 		Pose pos2 = new StaticRotatingPos();
-		pos2.SetXPos(314);
-		pos2.SetYPos(200);
+		pos2.SetXPos(57);
+		pos2.SetYPos(0);
 		pos2.SetAngle(0);
 		((StaticRotatingPos)pos2).setAngularSpeed(1);
 		v3.AddPosition(pos2);
 		
-		World.AddComponent(v);	
-		World.AddComponent(v2);
-		World.AddComponent(v3);
-		Level1.AddEntity(World);
+		world.AddComponent(v);	
+		world.AddComponent(v2);
+		world.AddComponent(v3);
+		level1.AddEntity(world);
 		// --------------------------------------
 		
 	}
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
@@ -97,8 +105,60 @@ public class Engine implements Screen{
 
 	@Override
 	public void dispose() {
+		level1.RemoveEntity(world);
+		world.Deactivate();
+	}
+
+	@Override
+	public boolean keyDown(int keycode) {
+		switch (keycode){
+		case Keys.ESCAPE:
+			dispose();
+			 ((Game) Gdx.app.getApplicationListener()).setScreen(new MenuScreen(workbench));
+		}
+		return true;
+	}
+
+	@Override
+	public boolean keyUp(int keycode) {
 		// TODO Auto-generated method stub
-		
+		return false;
+	}
+
+	@Override
+	public boolean keyTyped(char character) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean scrolled(int amount) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

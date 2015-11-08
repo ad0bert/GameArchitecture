@@ -18,4 +18,10 @@ public class CameraTarget extends Component {
 	public float GetAngle(){
 		return pose.GetAngle();
 	}
+
+	@Override
+	public void Update() {
+		// TODO Auto-generated method stub
+		
+	}
 }

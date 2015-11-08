@@ -22,6 +22,7 @@ public final class ServiceLocator {
 		systems.add(st);
 	}
 
+	@SuppressWarnings("rawtypes")
 	public static SystemTemplate GetService(Class c) {
 		for (SystemTemplate st : systems) {
 			if (st.getClass().equals(c))

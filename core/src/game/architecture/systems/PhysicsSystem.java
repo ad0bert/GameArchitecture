@@ -6,8 +6,9 @@ public class PhysicsSystem extends SystemTemplate {
 
 	@Override
 	public void Update() {
-		for (Component p : comps){}
-			//p.Update();
+		for (Component p : comps){
+			p.Update();
+		}
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package game.architecture.components;
 
+import com.badlogic.gdx.Gdx;
+
 public class StaticRotatingPos extends Component implements Pose{
 
 	// TODO: make vector class
@@ -11,17 +13,17 @@ public class StaticRotatingPos extends Component implements Pose{
 	
 	@Override
 	public float GetXPos() {
-		return xPos;
+		return (Gdx.graphics.getWidth()/2)+xPos;
 	}
 
 	@Override
 	public float GetZPos() {
-		return zPos;
+		return (Gdx.graphics.getWidth()/2)+zPos;
 	}
 
 	@Override
 	public float GetYPos() {
-		return yPos;
+		return (Gdx.graphics.getHeight()/2)+yPos;
 	}
 
 	@Override
@@ -56,6 +58,7 @@ public class StaticRotatingPos extends Component implements Pose{
 		this.angularSpeed = angularSpeed;
 	}
 	
+	@Override
 	public void Update(){
 		angle += angularSpeed;
 	}

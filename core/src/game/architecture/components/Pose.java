@@ -11,4 +11,6 @@ public interface Pose {
 	public void SetZPos(float z);
 	public void SetYPos(float y);
 	
+	public void Update();
+	
 }
