@@ -9,13 +9,12 @@ import game.architecture.components.Visual;
 
 public class RenderSystem extends SystemTemplate {
 
-	private SpriteBatch batch;
+	private SpriteBatch batch = new SpriteBatch();
 	
 	@Override
 	public void Update() {
 		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch = new SpriteBatch();
 		batch.begin();
 		
 		for (Component c : comps){
