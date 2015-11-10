@@ -3,7 +3,9 @@ package game.architecture.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EntityManager {
+import com.badlogic.gdx.utils.Disposable;
+
+public class EntityManager implements Disposable {
 
 	private List<GameEntity> entities;
 	
@@ -17,5 +19,16 @@ public class EntityManager {
 	
 	public boolean RemoveEntity(GameEntity ge){
 		return entities.remove(ge);
+	}
+
+	@Override
+	public void dispose() {
+		entities.clear();
+	}
+
+	public void Activate() {
+		for (GameEntity e : entities)
+			e.Activate();
+		
 	}
 }

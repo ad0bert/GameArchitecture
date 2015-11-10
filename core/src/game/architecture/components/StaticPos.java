@@ -1,6 +1,13 @@
 package game.architecture.components;
 
+import game.architecture.entity.GameEntity;
+
 public class StaticPos extends Component implements Pose{
+
+	public StaticPos(GameEntity e) {
+		super(e);
+		// TODO Auto-generated constructor stub
+	}
 
 	// TODO: make vector class
 	private float xPos;

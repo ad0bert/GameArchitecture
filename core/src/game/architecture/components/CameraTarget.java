@@ -1,22 +1,23 @@
 package game.architecture.components;
 
+import game.architecture.entity.GameEntity;
+
 public class CameraTarget extends Component {
-	private Pose pose;
 	
-	public CameraTarget(Pose p){
-		pose = p;
+	public CameraTarget(GameEntity e){
+		super(e);
 	}
 	
 	public float GetXPos(){
-		return pose.GetXPos();
+		return 0;
 	}
 	
 	public float GetYPos(){
-		return pose.GetYPos();
+		return 0;
 	}
 	
 	public float GetAngle(){
-		return pose.GetAngle();
+		return 0;
 	}
 
 	@Override

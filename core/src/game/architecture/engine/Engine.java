@@ -16,8 +16,7 @@ import game.architecture.menu.MenuScreen;
 import game.architecture.menu.Workbench;
 
 public class Engine implements Screen, InputProcessor{
-	private EntityManager level1;
-	private GameEntity world;
+	private EntityManager world;
 	private Workbench workbench;
 	
 	public Engine(Workbench w){
@@ -27,43 +26,55 @@ public class Engine implements Screen, InputProcessor{
 	}
 	
 	public void Init() {
-		level1 = new EntityManager();
+		world = new EntityManager();
 		// --------------------------------------
 		
-		world = new GameEntity();
+		GameEntity wheel1 = new GameEntity();
+		GameEntity wheel2 = new GameEntity();
+		GameEntity wheel3 = new GameEntity();
 		
-		Visual v = new Visual();
+		Visual v1 = new Visual(wheel1);
+		Visual v2 = new Visual(wheel2);
+		Visual v3 = new Visual(wheel3);
+		
 		TextureAtlas ta = new TextureAtlas(Gdx.files.internal("atlas.pack"));
-		v.AddTexture(ta.findRegion("cog1"));
-		Pose pos = new StaticRotatingPos();
-		pos.SetXPos(-57);
-		pos.SetYPos(0);
-		pos.SetAngle(0);
-		((StaticRotatingPos)pos).setAngularSpeed(1);
-		v.AddPosition(pos);
 		
-		Visual v2 = new Visual();
+		v1.AddTexture(ta.findRegion("cog1"));
 		v2.AddTexture(ta.findRegion("cog1_shadow"));
-		Pose pos1 = new StaticRotatingPos();
-		pos1.SetXPos(0);
-		pos1.SetYPos(0);
-		pos1.SetAngle(12);
-		((StaticRotatingPos)pos1).setAngularSpeed(-1);
-		v2.AddPosition(pos1);
-		
-		Visual v3 = new Visual();
 		v3.AddTexture(ta.findRegion("cog_n"));
-		Pose pos2 = new StaticRotatingPos();
-		pos2.SetXPos(57);
-		pos2.SetYPos(0);
-		pos2.SetAngle(0);
-		((StaticRotatingPos)pos2).setAngularSpeed(1);
-		v3.AddPosition(pos2);
 		
-		world.AddComponent(v);	
-		world.AddComponent(v2);
-		world.AddComponent(v3);
-		level1.AddEntity(world);
+		wheel1.AddComponent(v1);
+		wheel2.AddComponent(v2);
+		wheel3.AddComponent(v3);
+		
+		Pose pos1 = new StaticRotatingPos(wheel1);
+		Pose pos2 = new StaticRotatingPos(wheel2);
+		Pose pos3 = new StaticRotatingPos(wheel3);
+			
+		pos1.SetXPos(-57);
+		pos1.SetYPos(0);
+		pos1.SetAngle(0);
+		((StaticRotatingPos)pos1).setAngularSpeed(1);
+		
+		pos2.SetXPos(0);
+		pos2.SetYPos(0);
+		pos2.SetAngle(13);
+		((StaticRotatingPos)pos2).setAngularSpeed(-1);
+		
+		pos3.SetXPos(57);
+		pos3.SetYPos(0);
+		pos3.SetAngle(0);
+		((StaticRotatingPos)pos3).setAngularSpeed(1);
+		
+		wheel1.AddComponent((StaticRotatingPos)pos1);
+		wheel2.AddComponent((StaticRotatingPos)pos2);
+		wheel3.AddComponent((StaticRotatingPos)pos3);
+		
+		world.AddEntity(wheel1);
+		world.AddEntity(wheel2);
+		world.AddEntity(wheel3);
+		
+		world.Activate();
 		// --------------------------------------
 		
 	}
@@ -105,8 +116,7 @@ public class Engine implements Screen, InputProcessor{
 
 	@Override
 	public void dispose() {
-		level1.RemoveEntity(world);
-		world.Deactivate();
+		world.dispose();
 	}
 
 	@Override

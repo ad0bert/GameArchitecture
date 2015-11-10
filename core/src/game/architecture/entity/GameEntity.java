@@ -25,4 +25,12 @@ public class GameEntity {
 		for (Component c : components)
 			c.Deactivate();
 	}
+	
+	public Component getComponent(Class c){
+		for (Component comp : components){
+			if (c.isInstance(comp))
+				return comp;
+		}
+		return null;
+	}
 }

@@ -1,6 +1,7 @@
 package game.architecture.components;
 
 import game.architecture.engine.ServiceLocator;
+import game.architecture.entity.GameEntity;
 import game.architecture.systems.PhysicsSystem;
 
 public class Physics extends Component implements Pose {
@@ -11,7 +12,8 @@ public class Physics extends Component implements Pose {
 	private float zPos;
 	private float angle;
 	
-	public Physics(){
+	public Physics(GameEntity e){
+		super(e);
 		ServiceLocator.GetService(PhysicsSystem.class).Add(this);
 	}
 

@@ -4,14 +4,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import game.architecture.engine.ServiceLocator;
+import game.architecture.entity.GameEntity;
 import game.architecture.systems.RenderSystem;
 
 public class Visual extends Component {
 
 	private TextureRegion texture;
-	private Pose pos;
 	
-	public Visual(){
+	public Visual(GameEntity e){
+		super(e);
 		ServiceLocator.GetService(RenderSystem.class).Add(this);
 	}
 	
@@ -19,12 +20,9 @@ public class Visual extends Component {
 		texture = tex;
 	}
 	
-	public void AddPosition(Pose pos){
-		this.pos = pos;
-	}
-	
 	public void Render(SpriteBatch batch) {
-		if (!IsActive) return;
+		if (!isActive) return;
+		Pose pos = (Pose)this.entity.getComponent(Pose.class);
 		pos.Update();
 		batch.draw(texture,
 				pos.GetXPos(), pos.GetYPos(),

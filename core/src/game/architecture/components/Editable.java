@@ -2,9 +2,9 @@ package game.architecture.components;
 
 import game.architecture.entity.GameEntity;
 
-public class GameLogic extends Component {
+public class Editable extends Component {
 
-	public GameLogic(GameEntity e) {
+	public Editable(GameEntity e) {
 		super(e);
 		// TODO Auto-generated constructor stub
 	}
@@ -12,7 +12,7 @@ public class GameLogic extends Component {
 	@Override
 	public void Update() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

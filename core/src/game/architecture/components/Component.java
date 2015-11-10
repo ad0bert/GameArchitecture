@@ -1,14 +1,21 @@
 package game.architecture.components;
 
+import game.architecture.entity.GameEntity;
+
 public abstract class Component {
-	protected boolean IsActive = true;
+	protected boolean isActive = false;
+	protected GameEntity entity;
+	
+	public Component(GameEntity e){
+		entity = e;
+	}
 	
 	public void Activate(){
-		IsActive = true;
+		isActive = true;
 	}
 
 	public void Deactivate(){
-		IsActive = false;
+		isActive = false;
 	}
 	
 	public abstract void Update();

@@ -2,7 +2,14 @@ package game.architecture.components;
 
 import com.badlogic.gdx.Gdx;
 
+import game.architecture.entity.GameEntity;
+
 public class StaticRotatingPos extends Component implements Pose{
+
+	public StaticRotatingPos(GameEntity e) {
+		super(e);
+		// TODO Auto-generated constructor stub
+	}
 
 	// TODO: make vector class
 	private float xPos;
