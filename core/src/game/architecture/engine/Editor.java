@@ -17,12 +17,12 @@ import game.architecture.entity.GameEntity;
 import game.architecture.menu.MenuScreen;
 import game.architecture.menu.Workbench;
 
-public class Engine implements Screen, InputProcessor{
+public class Editor implements Screen, InputProcessor{
 	private EntityManager world;
 	private Workbench workbench;
 	private EntityFactory entityFactory = new EntityFactory();
 	
-	public Engine(Workbench w){
+	public Editor(Workbench w){
 		workbench = w;
 		Init();
 		Gdx.input.setInputProcessor(this);
@@ -104,8 +104,10 @@ public class Engine implements Screen, InputProcessor{
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
+		GameEntity ge = world.FindEntityByPos(screenX, screenY);
+		if (ge == null)
+			return false;
+		return true;
 	}
 
 	@Override
