@@ -11,12 +11,10 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import game.architecture.engine.Editor;
 import game.architecture.engine.Engine;
@@ -37,13 +35,8 @@ public class MenuScreen extends ScreenAdapter {
 	public int selectedButton = 1;
 
 	private List<TextButton> textButtons = new ArrayList<TextButton>();
-	
-	//private TextButton startButton, editButton, optionsButton, exitButton;
-
 	private Workbench workbench;
 
-	
-	
 	public MenuScreen(Workbench workbench) {
 		this.workbench = workbench;
 		pixelSize = 120.0f / Gdx.graphics.getHeight();
@@ -114,7 +107,6 @@ public class MenuScreen extends ScreenAdapter {
 				System.exit(0);
 				break;
 			}
-			
 		}
 
 		changeButtonSize();
@@ -126,12 +118,6 @@ public class MenuScreen extends ScreenAdapter {
 
 		stage.act(delta);
 		stage.draw();
-
-		// if (Gdx.input.isTouched()) {
-		// // ((Game) Gdx.app.getApplicationListener()).setScreen(game);
-		// dispose();
-		// }
-
 	}
 
 	public void changeButtonSize() {

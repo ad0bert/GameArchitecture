@@ -20,6 +20,10 @@ public class Visual extends Component {
 		texture = tex;
 	}
 	
+	public TextureRegion GetTexture(){
+		return texture;
+	}
+	
 	public void Render(SpriteBatch batch) {
 		if (!isActive) return;
 		Pose pos = (Pose)this.entity.getComponent(Pose.class);

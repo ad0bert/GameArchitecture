@@ -20,17 +20,17 @@ public class StaticRotatingPos extends Component implements Pose{
 	
 	@Override
 	public float GetXPos() {
-		return (Gdx.graphics.getWidth()/2)+xPos;
+		return xPos;
 	}
 
 	@Override
 	public float GetZPos() {
-		return (Gdx.graphics.getWidth()/2)+zPos;
+		return zPos;
 	}
 
 	@Override
 	public float GetYPos() {
-		return (Gdx.graphics.getHeight()/2)+yPos;
+		return yPos;
 	}
 
 	@Override

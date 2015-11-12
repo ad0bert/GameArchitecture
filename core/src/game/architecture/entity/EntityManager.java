@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.badlogic.gdx.utils.Disposable;
 
-import game.architecture.components.Colideable;
+import game.architecture.components.Collideable;
 
 public class EntityManager implements Disposable {
 
@@ -36,7 +36,7 @@ public class EntityManager implements Disposable {
 	public GameEntity FindEntityByPos(int screenX, int screenY) {
 		for (GameEntity ge : entities){
 			try {
-				Colideable c = (Colideable)ge.getComponent(Colideable.class);
+				Collideable c = (Collideable)ge.getComponent(Collideable.class);
 				if (c.IsHit(screenX, screenY))
 					return ge;
 			}catch(Exception e){

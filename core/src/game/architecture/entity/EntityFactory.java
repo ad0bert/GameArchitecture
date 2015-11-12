@@ -3,7 +3,7 @@ package game.architecture.entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
-import game.architecture.components.Colideable;
+import game.architecture.components.Collideable;
 import game.architecture.components.Pose;
 import game.architecture.components.StaticRotatingPos;
 import game.architecture.components.Visual;
@@ -40,7 +40,7 @@ public class EntityFactory {
 		((StaticRotatingPos)pos).setAngularSpeed(speed);
 		wheel.AddComponent((StaticRotatingPos)pos);
 		
-		Colideable col = new Colideable(wheel);
+		Collideable col = new Collideable(wheel);
 		wheel.AddComponent(col);
 		
 		return wheel;

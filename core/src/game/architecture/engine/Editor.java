@@ -107,6 +107,8 @@ public class Editor implements Screen, InputProcessor{
 		GameEntity ge = world.FindEntityByPos(screenX, screenY);
 		if (ge == null)
 			return false;
+		((StaticRotatingPos)ge.getComponent(Pose.class)).setAngularSpeed(0);
+		
 		return true;
 	}
 

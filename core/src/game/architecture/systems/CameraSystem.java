@@ -1,6 +1,8 @@
 package game.architecture.systems;
 
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import game.architecture.components.Component;
@@ -11,7 +13,7 @@ public class CameraSystem extends SystemTemplate {
 	private Viewport vp;
 	
 	public CameraSystem(float worldWidth, float worldHeight){
-		
+		camera = new OrthographicCamera();
 	}
 	
 	public Camera GetCamera(){
