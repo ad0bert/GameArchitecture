@@ -10,6 +10,8 @@ public class Physics extends Component implements Pose {
 	private float xPos;
 	private float yPos;
 	private float zPos;
+	private float yScale;
+	private float xScale;
 	private float angle;
 	
 	public Physics(GameEntity e){
@@ -61,6 +63,26 @@ public class Physics extends Component implements Pose {
 	public void Update() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public float GetXScale() {
+		return xScale;
+	}
+
+	@Override
+	public float GetYScale() {
+		return yScale;
+	}
+
+	@Override
+	public void SetXScale(float x) {
+		xScale = x;
+	}
+
+	@Override
+	public void SetYScale(float y) {
+		yScale = y;		
 	}
 
 }

@@ -8,6 +8,10 @@ public abstract class Collideable extends Component {
 		super(e);
 	}
 
+	public Collideable(Collideable c, GameEntity e) {
+		super(c, e);
+	}
+	
 	public abstract boolean IsHit(float x, float y);
 	public abstract boolean IsHitCircle(float x, float y, float rad);
 	public abstract boolean IsHitBox(float x, float y, float height, float width);

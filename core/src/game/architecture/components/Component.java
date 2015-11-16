@@ -2,7 +2,7 @@ package game.architecture.components;
 
 import game.architecture.entity.GameEntity;
 
-public abstract class Component {
+public class Component {
 	protected boolean isActive = false;
 	protected GameEntity entity;
 	
@@ -10,6 +10,10 @@ public abstract class Component {
 		entity = e;
 	}
 	
+	public Component(Component c, GameEntity e) {
+		entity = e;
+	}
+
 	public void Activate(){
 		isActive = true;
 	}
@@ -18,5 +22,5 @@ public abstract class Component {
 		isActive = false;
 	}
 	
-	public abstract void Update();
+	public void Update(){}
 }

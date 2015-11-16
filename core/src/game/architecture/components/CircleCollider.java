@@ -12,6 +12,9 @@ public class CircleCollider extends Collideable {
 		super(e);
 	}
 
+	public CircleCollider(CircleCollider c, GameEntity e){
+		super(c, e);
+	}
 	@Override
 	public boolean IsHit(float x, float y){
 		Pose pos = (Pose)this.entity.getComponent(Pose.class);

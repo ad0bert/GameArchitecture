@@ -38,6 +38,7 @@ public class Editor extends ScreenAdapter implements InputProcessor {
 				eWheel.Cog_Shadow));
 		world.AddEntity(entityFactory.CreateWheelEntity(ServiceLocator.V_WIDTH / 2 + 57, ServiceLocator.V_HEIGHT / 2, 0,
 				0, eWheel.Cog_n));
+		world.AddEntity(entityFactory.CreateBoxEntity(50, 50, 0));
 
 		world.Activate();
 		// --------------------------------------
@@ -92,6 +93,17 @@ public class Editor extends ScreenAdapter implements InputProcessor {
 			break;
 		case Keys.R:
 			keyRdown = true;
+			break;
+		case Keys.D:
+			if (selectedItem != null)
+				world.AddEntity(entityFactory.CreateDuplicate(selectedItem));
+			break;
+		case Keys.X:
+			if (selectedItem != null){
+				if (world.RemoveEntity(selectedItem))
+					selectedItem = null;
+				
+			}
 			break;
 		}
 

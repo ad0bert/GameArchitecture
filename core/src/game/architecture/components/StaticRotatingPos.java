@@ -7,10 +7,22 @@ public class StaticRotatingPos extends Component implements Pose{
 		super(e);
 	}
 
+	public StaticRotatingPos(StaticRotatingPos p, GameEntity e){
+		super(p, e);
+		xPos = p.GetXPos();
+		yPos = p.GetYPos();
+		zPos = p.GetZPos();
+		yScale = p.GetYScale();
+		xScale = p.GetXScale();
+		angle = p.GetAngle();
+		angularSpeed = p.getAngularSpeed();
+	}
 	// TODO: make vector class
 	private float xPos;
 	private float yPos;
 	private float zPos;
+	private float yScale;
+	private float xScale;
 	private float angle;
 	private float angularSpeed;
 
@@ -64,6 +76,26 @@ public class StaticRotatingPos extends Component implements Pose{
 	@Override
 	public void Update(){
 		angle += angularSpeed;
+	}
+
+	@Override
+	public float GetXScale() {
+		return xScale;
+	}
+
+	@Override
+	public float GetYScale() {
+		return yScale;
+	}
+
+	@Override
+	public void SetXScale(float x) {
+		xScale = x;
+	}
+
+	@Override
+	public void SetYScale(float y) {
+		yScale = y;
 	}
 
 }

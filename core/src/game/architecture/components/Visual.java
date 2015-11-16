@@ -23,6 +23,13 @@ public class Visual extends Component {
 		ServiceLocator.GetService(RenderSystem.class).Add(this);
 	}
 	
+	public Visual (Visual v, GameEntity e){
+		super(v, e);
+		col = v.col;
+		texture = v.GetTexture();
+		ServiceLocator.GetService(RenderSystem.class).Add(this);
+	}
+	
 	public void AddTexture(TextureRegion tex){	
 		texture = tex;
 	}
@@ -44,8 +51,8 @@ public class Visual extends Component {
 				texture.getRegionHeight() / 2.0f, 
 				texture.getRegionWidth(), 
 				texture.getRegionHeight(), 
-				1f, 
-				1f,
+				pos.GetXScale(), 
+				pos.GetYScale(),
 				pos.GetAngle());
 		
 		if (count == 20) count = 0;

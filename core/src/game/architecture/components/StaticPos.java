@@ -9,10 +9,21 @@ public class StaticPos extends Component implements Pose{
 		// TODO Auto-generated constructor stub
 	}
 
+	public StaticPos(StaticPos p, GameEntity e){
+		super(p, e);
+		xPos = p.GetXPos();
+		yPos = p.GetYPos();
+		zPos = p.GetZPos();
+		yScale = p.GetYScale();
+		xScale = p.GetXScale();
+		angle = p.GetAngle();
+	}
 	// TODO: make vector class
 	private float xPos;
 	private float yPos;
 	private float zPos;
+	private float yScale;
+	private float xScale;
 	private float angle;
 	
 	@Override
@@ -58,6 +69,26 @@ public class StaticPos extends Component implements Pose{
 	public void Update() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public float GetXScale() {
+		return xScale;
+	}
+
+	@Override
+	public float GetYScale() {
+		return yScale;
+	}
+
+	@Override
+	public void SetXScale(float x) {
+		xScale = x;
+	}
+
+	@Override
+	public void SetYScale(float y) {
+		yScale = y;
 	}
 
 }

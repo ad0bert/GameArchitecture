@@ -23,7 +23,9 @@ public class EntityManager implements Disposable {
 	}
 	
 	public boolean RemoveEntity(GameEntity ge){
-		return entities.remove(ge);
+		boolean result =  entities.remove(ge);
+		ge.dispose();
+		return result;
 	}
 
 	@Override
