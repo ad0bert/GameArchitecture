@@ -1,14 +1,10 @@
 package game.architecture.components;
 
-import com.badlogic.gdx.Gdx;
-
 import game.architecture.entity.GameEntity;
-
 public class StaticRotatingPos extends Component implements Pose{
 
 	public StaticRotatingPos(GameEntity e) {
 		super(e);
-		// TODO Auto-generated constructor stub
 	}
 
 	// TODO: make vector class
@@ -17,7 +13,7 @@ public class StaticRotatingPos extends Component implements Pose{
 	private float zPos;
 	private float angle;
 	private float angularSpeed;
-	
+
 	@Override
 	public float GetXPos() {
 		return xPos;

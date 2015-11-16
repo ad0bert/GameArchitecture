@@ -5,7 +5,10 @@ import java.util.List;
 
 import com.badlogic.gdx.utils.Disposable;
 
+import game.architecture.components.CircleCollider;
 import game.architecture.components.Collideable;
+import game.architecture.components.Pose;
+import game.architecture.components.Visual;
 
 public class EntityManager implements Disposable {
 
@@ -25,6 +28,8 @@ public class EntityManager implements Disposable {
 
 	@Override
 	public void dispose() {
+		for (GameEntity ge : entities)
+			ge.dispose();
 		entities.clear();
 	}
 
@@ -44,5 +49,24 @@ public class EntityManager implements Disposable {
 			}
 		}
 		return null;
+	}
+	
+	public boolean CheckHit(GameEntity entity){
+		Collideable c1 = (Collideable)entity.getComponent(Collideable.class);
+		Pose p1 = (Pose)entity.getComponent(Pose.class);
+		Visual v1 = (Visual)entity.getComponent(Visual.class);
+		
+		for (GameEntity ge : entities){
+			Collideable c2 = (Collideable)ge.getComponent(Collideable.class);
+			if (c1.getClass().equals(CircleCollider.class) &&
+				c2.getClass().equals(CircleCollider.class) && !c1.equals(c2)){
+				if (c2.IsHitCircle(p1.GetXPos(), p1.GetYPos(), v1.GetTexture().getRegionHeight()/2))
+					return true;
+			} else {
+				// todo
+			}
+			
+		}
+		return false;
 	}
 }

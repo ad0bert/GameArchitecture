@@ -2,31 +2,26 @@ package game.architecture.systems;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 import game.architecture.components.Component;
+import game.architecture.engine.ServiceLocator;
 
 public class CameraSystem extends SystemTemplate {
 
-	private Camera camera;
-	private Viewport vp;
+	private OrthographicCamera camera;
 	
-	public CameraSystem(float worldWidth, float worldHeight){
+	public CameraSystem(){
 		camera = new OrthographicCamera();
+		camera.setToOrtho(false, ServiceLocator.V_WIDTH, ServiceLocator.V_HEIGHT);
 	}
 	
 	public Camera GetCamera(){
 		return camera;
 	}
 	
-	public Viewport GetViewPort(){
-		return vp;
-	}
-	
 	@Override
 	public void Update() {
-		// TODO Auto-generated method stub
+		camera.update();
 
 	}
 

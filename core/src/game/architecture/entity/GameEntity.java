@@ -3,9 +3,11 @@ package game.architecture.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.utils.Disposable;
+
 import game.architecture.components.Component;
 
-public class GameEntity {
+public class GameEntity implements Disposable {
 	private List<Component> components;
 	
 	public GameEntity(){
@@ -32,5 +34,10 @@ public class GameEntity {
 				return comp;
 		}
 		return null;
+	}
+
+	@Override
+	public void dispose() {
+		components.clear();		
 	}
 }

@@ -3,6 +3,7 @@ package game.architecture.entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
+import game.architecture.components.CircleCollider;
 import game.architecture.components.Collideable;
 import game.architecture.components.Pose;
 import game.architecture.components.StaticRotatingPos;
@@ -14,7 +15,7 @@ public class EntityFactory {
 	public enum eFactory{Edit, Play};
 	public enum eWheel{Cog1, Cog_Shadow, Cog_n};
 	
-	public GameEntity CreateWheelEntity(int x, int y, int angle, int speed, eWheel type){
+	public GameEntity CreateWheelEntity(float x, float y, float angle, float speed, eWheel type){
 		GameEntity wheel = new GameEntity();
 		Visual visual = new Visual(wheel);
 		TextureAtlas ta = new TextureAtlas(Gdx.files.internal("atlas.pack"));
@@ -40,7 +41,7 @@ public class EntityFactory {
 		((StaticRotatingPos)pos).setAngularSpeed(speed);
 		wheel.AddComponent((StaticRotatingPos)pos);
 		
-		Collideable col = new Collideable(wheel);
+		Collideable col = new CircleCollider(wheel);
 		wheel.AddComponent(col);
 		
 		return wheel;

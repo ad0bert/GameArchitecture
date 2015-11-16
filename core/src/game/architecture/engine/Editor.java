@@ -3,12 +3,11 @@ package game.architecture.engine;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.Color;
 
 import game.architecture.components.Pose;
-import game.architecture.components.StaticRotatingPos;
 import game.architecture.components.Visual;
 import game.architecture.entity.EntityFactory;
 import game.architecture.entity.EntityFactory.eWheel;
@@ -17,62 +16,66 @@ import game.architecture.entity.GameEntity;
 import game.architecture.menu.MenuScreen;
 import game.architecture.menu.Workbench;
 
-public class Editor implements Screen, InputProcessor{
+public class Editor extends ScreenAdapter implements InputProcessor {
 	private EntityManager world;
 	private Workbench workbench;
+	private GameEntity selectedItem = null;
 	private EntityFactory entityFactory = new EntityFactory();
-	
-	public Editor(Workbench w){
+	private boolean keyRdown = false;
+
+	public Editor(Workbench w) {
 		workbench = w;
 		Init();
 		Gdx.input.setInputProcessor(this);
 	}
-	
+
 	public void Init() {
 		world = new EntityManager();
 		// --------------------------------------
-		world.AddEntity(entityFactory.CreateWheelEntity(-57, 0, 0, 1, eWheel.Cog1));
-		world.AddEntity(entityFactory.CreateWheelEntity(0, 0, 13, -1, eWheel.Cog_Shadow));
-		world.AddEntity(entityFactory.CreateWheelEntity(57, 0, 0, 1, eWheel.Cog_n));
-		
+		world.AddEntity(entityFactory.CreateWheelEntity(ServiceLocator.V_WIDTH / 2 - 57, ServiceLocator.V_HEIGHT / 2, 0,
+				0, eWheel.Cog1));
+		world.AddEntity(entityFactory.CreateWheelEntity(ServiceLocator.V_WIDTH / 2, ServiceLocator.V_HEIGHT / 2, 13, 0,
+				eWheel.Cog_Shadow));
+		world.AddEntity(entityFactory.CreateWheelEntity(ServiceLocator.V_WIDTH / 2 + 57, ServiceLocator.V_HEIGHT / 2, 0,
+				0, eWheel.Cog_n));
+
 		world.Activate();
 		// --------------------------------------
-		
+
 	}
 
 	@Override
 	public void show() {
-		
-		
+
 	}
 
 	@Override
 	public void render(float delta) {
 		ServiceLocator.Update();
-		
 	}
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
-		
+		super.hide();
+		dispose();
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		
+		ServiceLocator.V_HEIGHT = height;
+		ServiceLocator.V_WIDTH = width;
 	}
 
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void resume() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -82,16 +85,26 @@ public class Editor implements Screen, InputProcessor{
 
 	@Override
 	public boolean keyDown(int keycode) {
-		switch (keycode){
+		switch (keycode) {
 		case Keys.ESCAPE:
 			dispose();
-			 ((Game) Gdx.app.getApplicationListener()).setScreen(new MenuScreen(workbench));
+			((Game) Gdx.app.getApplicationListener()).setScreen(new MenuScreen(workbench));
+			break;
+		case Keys.R:
+			keyRdown = true;
+			break;
 		}
+
 		return true;
 	}
 
 	@Override
 	public boolean keyUp(int keycode) {
+		switch (keycode) {
+		case Keys.R:
+			keyRdown = false;
+			break;
+		}
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -104,11 +117,17 @@ public class Editor implements Screen, InputProcessor{
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		GameEntity ge = world.FindEntityByPos(screenX, screenY);
-		if (ge == null)
-			return false;
-		((StaticRotatingPos)ge.getComponent(Pose.class)).setAngularSpeed(0);
-		
+		if (selectedItem != null) {
+			if (!world.CheckHit(selectedItem)) {
+				((Visual) selectedItem.getComponent(Visual.class)).toggleWobbel();
+				selectedItem = null;
+			}
+		} else {
+			selectedItem = world.FindEntityByPos(screenX, screenY);
+			if (selectedItem == null)
+				return false;
+			((Visual) selectedItem.getComponent(Visual.class)).toggleWobbel();
+		}
 		return true;
 	}
 
@@ -126,7 +145,19 @@ public class Editor implements Screen, InputProcessor{
 
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
-		// TODO Auto-generated method stub
+		if (selectedItem != null) {
+			if (keyRdown) {
+				((Pose) selectedItem.getComponent(Pose.class)).SetAngle(screenY);
+			} else {
+				((Pose) selectedItem.getComponent(Pose.class)).SetXPos(screenX);
+				((Pose) selectedItem.getComponent(Pose.class)).SetYPos(ServiceLocator.V_HEIGHT - screenY);
+				if (world.CheckHit(selectedItem)) {
+					((Visual) selectedItem.getComponent(Visual.class)).SetColor(Color.RED);
+				} else {
+					((Visual) selectedItem.getComponent(Visual.class)).SetColor(Color.WHITE);
+				}
+			}
+		}
 		return false;
 	}
 

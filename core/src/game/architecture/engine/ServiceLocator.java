@@ -3,6 +3,8 @@ package game.architecture.engine;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.Gdx;
+
 import game.architecture.systems.CameraSystem;
 import game.architecture.systems.PhysicsSystem;
 import game.architecture.systems.RenderSystem;
@@ -12,14 +14,16 @@ public final class ServiceLocator {
 
 	private static List<SystemTemplate> systems;
 	private static boolean isRunning = true;
-    public static final float V_WIDTH = 1366;
-    public static final float V_HEIGHT = 768;
+    public static float V_WIDTH;
+    public static float V_HEIGHT;
     
 	static {
+		V_WIDTH = Gdx.graphics.getWidth();
+		V_HEIGHT = Gdx.graphics.getHeight();
 		systems = new ArrayList<SystemTemplate>();
 		AddService(new RenderSystem());
 		AddService(new PhysicsSystem());
-		AddService(new CameraSystem(V_WIDTH, V_HEIGHT));
+		AddService(new CameraSystem());
 	}
 
 	private static void AddService(SystemTemplate st) {

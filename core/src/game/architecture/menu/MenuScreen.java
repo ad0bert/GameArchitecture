@@ -8,7 +8,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -18,13 +17,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 
 import game.architecture.engine.Editor;
 import game.architecture.engine.Engine;
+import game.architecture.engine.ServiceLocator;
+import game.architecture.systems.CameraSystem;
 
 public class MenuScreen extends ScreenAdapter {
-
-	OrthographicCamera camera;
-
-	float screenWidth = Gdx.graphics.getWidth();
-	float screenHeight = Gdx.graphics.getHeight();
 
 	private TextureAtlas atlas;
 	private Skin skin;
@@ -39,11 +35,6 @@ public class MenuScreen extends ScreenAdapter {
 
 	public MenuScreen(Workbench workbench) {
 		this.workbench = workbench;
-		pixelSize = 120.0f / Gdx.graphics.getHeight();
-
-		camera = new OrthographicCamera();
-		camera.setToOrtho(false, screenWidth * pixelSize, screenHeight * pixelSize);
-
 	}
 
 	@Override
@@ -113,17 +104,16 @@ public class MenuScreen extends ScreenAdapter {
 
 		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-		camera.update();
-
+		((CameraSystem)ServiceLocator.GetService(CameraSystem.class)).Update();
+		
 		stage.act(delta);
 		stage.draw();
 	}
 
 	public void changeButtonSize() {
 		
-		float xLow  = screenWidth / 2 - 175;
-		float xHigh = screenWidth / 2 - 150;
+		float xLow  = ServiceLocator.V_WIDTH / 2 - 175;
+		float xHigh = ServiceLocator.V_WIDTH / 2 - 150;
 		
 		float widthSmall = 300;
 		float widthBig = 350;
@@ -133,35 +123,35 @@ public class MenuScreen extends ScreenAdapter {
 		
 		switch(selectedButton){
 		case 1:
-			textButtons.get(0).setBounds(xLow, screenHeight / 2 + 60, widthBig, heightBig);
-			textButtons.get(1).setBounds(xHigh, screenHeight / 2, widthSmall, heightSmall);
-			textButtons.get(2).setBounds(xHigh, screenHeight / 2 - 60, widthSmall, heightSmall);
-			textButtons.get(3).setBounds(xHigh, screenHeight / 2 - 120, widthSmall, heightSmall);
+			textButtons.get(0).setBounds(xLow, ServiceLocator.V_HEIGHT / 2 + 60, widthBig, heightBig);
+			textButtons.get(1).setBounds(xHigh, ServiceLocator.V_HEIGHT / 2, widthSmall, heightSmall);
+			textButtons.get(2).setBounds(xHigh, ServiceLocator.V_HEIGHT / 2 - 60, widthSmall, heightSmall);
+			textButtons.get(3).setBounds(xHigh, ServiceLocator.V_HEIGHT / 2 - 120, widthSmall, heightSmall);
 			break;
 		case 2:
-			textButtons.get(0).setBounds(xHigh, screenHeight / 2 + 60, widthSmall, heightSmall);
-			textButtons.get(1).setBounds(xLow, screenHeight / 2, widthBig, heightBig);
-			textButtons.get(2).setBounds(xHigh, screenHeight / 2 - 60, widthSmall, heightSmall);
-			textButtons.get(3).setBounds(xHigh, screenHeight / 2 - 120, widthSmall, heightSmall);
+			textButtons.get(0).setBounds(xHigh, ServiceLocator.V_HEIGHT / 2 + 60, widthSmall, heightSmall);
+			textButtons.get(1).setBounds(xLow, ServiceLocator.V_HEIGHT / 2, widthBig, heightBig);
+			textButtons.get(2).setBounds(xHigh, ServiceLocator.V_HEIGHT / 2 - 60, widthSmall, heightSmall);
+			textButtons.get(3).setBounds(xHigh, ServiceLocator.V_HEIGHT / 2 - 120, widthSmall, heightSmall);
 			break;
 		case 3: 
-			textButtons.get(0).setBounds(xHigh, screenHeight / 2 + 60, widthSmall, heightSmall);
-			textButtons.get(1).setBounds(xHigh, screenHeight / 2, widthSmall, heightSmall);
-			textButtons.get(2).setBounds(xLow, screenHeight / 2 - 60, widthBig, heightBig);
-			textButtons.get(3).setBounds(xHigh, screenHeight / 2 - 120, widthSmall, heightSmall);
+			textButtons.get(0).setBounds(xHigh, ServiceLocator.V_HEIGHT / 2 + 60, widthSmall, heightSmall);
+			textButtons.get(1).setBounds(xHigh, ServiceLocator.V_HEIGHT / 2, widthSmall, heightSmall);
+			textButtons.get(2).setBounds(xLow, ServiceLocator.V_HEIGHT / 2 - 60, widthBig, heightBig);
+			textButtons.get(3).setBounds(xHigh, ServiceLocator.V_HEIGHT / 2 - 120, widthSmall, heightSmall);
 			break;
 		case 4:
-			textButtons.get(0).setBounds(xHigh, screenHeight / 2 + 60, widthSmall, heightSmall);
-			textButtons.get(1).setBounds(xHigh, screenHeight / 2, widthSmall, heightSmall);
-			textButtons.get(2).setBounds(xHigh, screenHeight / 2 - 60, widthSmall, heightSmall);
-			textButtons.get(3).setBounds(xLow, screenHeight / 2 - 120, widthBig, heightBig);
+			textButtons.get(0).setBounds(xHigh, ServiceLocator.V_HEIGHT / 2 + 60, widthSmall, heightSmall);
+			textButtons.get(1).setBounds(xHigh, ServiceLocator.V_HEIGHT / 2, widthSmall, heightSmall);
+			textButtons.get(2).setBounds(xHigh, ServiceLocator.V_HEIGHT / 2 - 60, widthSmall, heightSmall);
+			textButtons.get(3).setBounds(xLow, ServiceLocator.V_HEIGHT / 2 - 120, widthBig, heightBig);
 			break;
 		}
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		super.resize(width, height);
+		//super.resize(width, height);
 	}
 
 	@Override
