@@ -15,6 +15,7 @@ import game.architecture.entity.EntityManager;
 import game.architecture.entity.GameEntity;
 import game.architecture.menu.MenuScreen;
 import game.architecture.menu.Workbench;
+import game.architecture.systems.CollisionSystem;
 
 public class Editor extends ScreenAdapter implements InputProcessor {
 	private EntityManager world;
@@ -95,8 +96,12 @@ public class Editor extends ScreenAdapter implements InputProcessor {
 			keyRdown = true;
 			break;
 		case Keys.D:
-			if (selectedItem != null)
-				world.AddEntity(entityFactory.CreateDuplicate(selectedItem));
+			if (selectedItem != null){
+				if (!((CollisionSystem)ServiceLocator
+						.GetService(CollisionSystem.class))
+						.CheckHit(selectedItem))
+					world.AddEntity(entityFactory.CreateDuplicate(selectedItem));
+			}
 			break;
 		case Keys.X:
 			if (selectedItem != null){
@@ -130,7 +135,9 @@ public class Editor extends ScreenAdapter implements InputProcessor {
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		if (selectedItem != null) {
-			if (!world.CheckHit(selectedItem)) {
+			if (!((CollisionSystem)ServiceLocator
+					.GetService(CollisionSystem.class))
+					.CheckHit(selectedItem)) {
 				((Visual) selectedItem.getComponent(Visual.class)).toggleWobbel();
 				selectedItem = null;
 			}
@@ -163,7 +170,9 @@ public class Editor extends ScreenAdapter implements InputProcessor {
 			} else {
 				((Pose) selectedItem.getComponent(Pose.class)).SetXPos(screenX);
 				((Pose) selectedItem.getComponent(Pose.class)).SetYPos(ServiceLocator.V_HEIGHT - screenY);
-				if (world.CheckHit(selectedItem)) {
+				if (((CollisionSystem)ServiceLocator
+						.GetService(CollisionSystem.class))
+						.CheckHit(selectedItem)) {
 					((Visual) selectedItem.getComponent(Visual.class)).SetColor(Color.RED);
 				} else {
 					((Visual) selectedItem.getComponent(Visual.class)).SetColor(Color.WHITE);

@@ -22,5 +22,8 @@ public class Component {
 		isActive = false;
 	}
 	
+	public GameEntity getEntity(){
+		return entity;
+	}
 	public void Update(){}
 }

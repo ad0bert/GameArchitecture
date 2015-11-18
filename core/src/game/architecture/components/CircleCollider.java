@@ -31,23 +31,33 @@ public class CircleCollider extends Collideable {
 	}
 	
 	@Override
-	public boolean IsHitCircle(float x, float y, float rad){
-		Pose pos = (Pose)this.entity.getComponent(Pose.class);
-		Visual visual = (Visual)this.entity.getComponent(Visual.class);
-		float thisRad = visual.GetTexture().getRegionHeight() / 2;
+	public boolean IsHit(CircleCollider c){
+		Pose pos1 = (Pose)this.entity.getComponent(Pose.class);
+		Pose pos2 = (Pose)c.entity.getComponent(Pose.class);
 		
-		float dx = x - pos.GetXPos();
-		float dy = y - pos.GetYPos();
+		Visual visual1 = (Visual)this.entity.getComponent(Visual.class);
+		Visual visual2 = (Visual)c.entity.getComponent(Visual.class);
+		
+		float rad1 = visual1.GetTexture().getRegionHeight() / 2;
+		float rad2 = visual2.GetTexture().getRegionHeight() / 2;
+		
+		float dx = pos1.GetXPos() - pos2.GetXPos();
+		float dy = pos1.GetYPos() - pos2.GetYPos();
+		
 		double distance = Math.sqrt(dx*dx + dy*dy);
 		
-		
-		return (distance < (rad) + thisRad);
+		return (distance < (rad1 + rad2));
 	}
 	
 	@Override
-	public boolean IsHitBox(float x, float y, float height, float width){
+	public boolean IsHit(BoxCollider c){
 		
 		return false;
+	}
+
+	@Override
+	public boolean IsHit(Collideable c) {
+		return c.IsHit(this);
 	}
 	
 }

@@ -3,6 +3,7 @@ package game.architecture.entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
+import game.architecture.components.BoxCollider;
 import game.architecture.components.CircleCollider;
 import game.architecture.components.Collideable;
 import game.architecture.components.Pose;
@@ -51,7 +52,7 @@ public class EntityFactory {
 	public GameEntity CreateBoxEntity(float x, float y, float angle){
 		GameEntity plattform = new GameEntity();
 		Visual visual = new Visual(plattform);
-		TextureAtlas ta = new TextureAtlas(Gdx.files.internal("platform.pack"));
+		TextureAtlas ta = new TextureAtlas(Gdx.files.internal("texture.pack"));
 		visual.AddTexture(ta.findRegion("Platform256"));
 		plattform.AddComponent(visual);
 		Pose pos = new StaticPos(plattform);
@@ -61,7 +62,7 @@ public class EntityFactory {
 		pos.SetXScale(0.5f);
 		pos.SetYScale(0.5f);
 		plattform.AddComponent((StaticPos)pos);
-		Collideable col = new CircleCollider(plattform);
+		Collideable col = new BoxCollider(plattform);
 		plattform.AddComponent(col);
 		return plattform;
 	}
