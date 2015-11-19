@@ -14,7 +14,7 @@ public class CollisionSystem extends SystemTemplate {
 	@Override
 	public void Update() {
 		entities.clear();
-		for (Component c1 : comps)
+		for (Component c1 : comps){
 			for (Component c2 : comps){
 				if (c1.equals(c2))
 					continue;
@@ -23,6 +23,7 @@ public class CollisionSystem extends SystemTemplate {
 					
 				entities.add(c1.getEntity());
 			}
+		}
 	}
 
 	@Override

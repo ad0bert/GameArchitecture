@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.collision.Ray;
 import game.architecture.engine.ServiceLocator;
 import game.architecture.entity.GameEntity;
 import game.architecture.systems.CameraSystem;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class BoxCollider extends Collideable {
 
@@ -32,14 +33,27 @@ public class BoxCollider extends Collideable {
 
 	@Override
 	public boolean IsHit(CircleCollider c) {
-		// TODO Auto-generated method stub
+		Pose pos1 = (Pose)this.entity.getComponent(Pose.class);
+		Pose pos2 = (Pose)c.entity.getComponent(Pose.class);
+		
+		float angle = pos1.GetAngle();
+		
+		float dx = pos1.GetXPos() - pos2.GetXPos();
+		float dy = pos1.GetYPos() - pos2.GetYPos();
+		
+		float distance = (float)Math.sqrt(dx*dx + dy*dy);
+		float xC = pos2.GetXPos() + (distance / (float)Math.sin(90)) /* 1 */ * (float)Math.sin(angle);
+		float yC = pos2.GetYPos() + (distance / (float)Math.sin(180-90-angle)) * (float)Math.sin(angle);
+		
+		Visual visual1 = (Visual)this.entity.getComponent(Visual.class);
+		Visual visual2 = (Visual)c.entity.getComponent(Visual.class);
+		
 		return false;
 	}
 
 	@Override
 	public boolean IsHit(BoxCollider c) {
-		// TODO Auto-generated method stub
-		return false;
+		throw new NotImplementedException();
 	}
 
 	@Override
