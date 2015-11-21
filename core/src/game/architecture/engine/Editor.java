@@ -105,8 +105,9 @@ public class Editor extends ScreenAdapter implements InputProcessor {
 			break;
 		case Keys.X:
 			if (selectedItem != null){
-				if (world.RemoveEntity(selectedItem))
-					selectedItem = null;
+				selectedItem.Deactivate();
+					if (world.RemoveEntity(selectedItem))
+				selectedItem = null;
 				
 			}
 			break;
@@ -165,17 +166,19 @@ public class Editor extends ScreenAdapter implements InputProcessor {
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
 		if (selectedItem != null) {
+			Pose p = ((Pose) selectedItem.getComponent(Pose.class));
+			Visual v = ((Visual) selectedItem.getComponent(Visual.class));
 			if (keyRdown) {
-				((Pose) selectedItem.getComponent(Pose.class)).SetAngle(screenY);
+				p.SetAngle(screenY);
 			} else {
-				((Pose) selectedItem.getComponent(Pose.class)).SetXPos(screenX);
-				((Pose) selectedItem.getComponent(Pose.class)).SetYPos(ServiceLocator.V_HEIGHT - screenY);
+				p.SetXPos(screenX - v.GetTexture().getRegionWidth()/2);
+				p.SetYPos(ServiceLocator.V_HEIGHT - screenY - v.GetTexture().getRegionHeight()/2);
 				if (((CollisionSystem)ServiceLocator
 						.GetService(CollisionSystem.class))
 						.CheckHit(selectedItem)) {
-					((Visual) selectedItem.getComponent(Visual.class)).SetColor(Color.RED);
+					v.SetColor(Color.RED);
 				} else {
-					((Visual) selectedItem.getComponent(Visual.class)).SetColor(Color.WHITE);
+					v.SetColor(Color.WHITE);
 				}
 			}
 		}
