@@ -33,7 +33,7 @@ public class CircleCollider extends Collideable {
 	
 	@Override
 	public boolean IsHit(CircleCollider c){
-		if (!isActive && !c.isActive) return false;
+		if (!isActive || !c.isActive) return false;
 		Pose pos1 = (Pose)this.entity.getComponent(Pose.class);
 		Pose pos2 = (Pose)c.entity.getComponent(Pose.class);
 		
@@ -53,7 +53,7 @@ public class CircleCollider extends Collideable {
 	
 	@Override
 	public boolean IsHit(BoxCollider c){
-		if (!isActive && !c.isActive) return false;
+		if (!isActive || !c.isActive) return false;
 		Pose pos2 = (Pose)this.entity.getComponent(Pose.class);
 		Pose pos1 = (Pose)c.entity.getComponent(Pose.class);
 		
