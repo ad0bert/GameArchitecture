@@ -30,8 +30,11 @@ public class EntityManager implements Disposable {
 
 	@Override
 	public void dispose() {
-		for (GameEntity ge : entities)
+		for (GameEntity ge : entities){
+			ge.Deactivate();
 			ge.dispose();
+		}
+			
 		entities.clear();
 	}
 

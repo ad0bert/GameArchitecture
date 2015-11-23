@@ -169,7 +169,7 @@ public class Editor extends ScreenAdapter implements InputProcessor {
 			Pose p = ((Pose) selectedItem.getComponent(Pose.class));
 			Visual v = ((Visual) selectedItem.getComponent(Visual.class));
 			if (keyRdown) {
-				p.SetAngle(-(screenY%180));
+				p.SetAngle(screenY%360);
 			} else {
 				p.SetXPos(screenX - v.GetTexture().getRegionWidth()/2);
 				p.SetYPos(ServiceLocator.V_HEIGHT - screenY - v.GetTexture().getRegionHeight()/2);

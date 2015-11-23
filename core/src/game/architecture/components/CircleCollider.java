@@ -69,8 +69,8 @@ public class CircleCollider extends Collideable {
 		float centerX = pos1.GetXPos() + visual1.GetTexture().getRegionWidth()  / 2;
 		float centerY = pos1.GetYPos() + visual1.GetTexture().getRegionHeight() / 2;
 		
-		float dx = (pos2.GetXPos() + radius) - centerX;
-		float dy = (pos2.GetYPos() + radius) - centerY;
+		float dx = Math.abs((pos2.GetXPos() + radius) - centerX);
+		float dy = Math.abs((pos2.GetYPos() + radius) - centerY);
 		
 		float xC = centerX + dx * (float)Math.cos(angle) - dy * (float)Math.sin(angle);
 		float yC = centerY + dx * (float)Math.sin(angle) + dy * (float)Math.cos(angle);
