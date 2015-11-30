@@ -7,6 +7,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 
+import game.architecture.components.Physics;
 import game.architecture.components.Pose;
 import game.architecture.components.Visual;
 import game.architecture.entity.EntityFactory;
@@ -17,14 +18,14 @@ import game.architecture.menu.MenuScreen;
 import game.architecture.menu.Workbench;
 import game.architecture.systems.CollisionSystem;
 
-public class Editor extends ScreenAdapter implements InputProcessor {
+public class Physic extends ScreenAdapter implements InputProcessor {
 	private EntityManager world;
 	private Workbench workbench;
 	private GameEntity selectedItem = null;
 	private EntityFactory entityFactory = new EntityFactory();
 	private boolean keyRdown = false;
 
-	public Editor(Workbench w) {
+	public Physic(Workbench w) {
 		workbench = w;
 		Init();
 		Gdx.input.setInputProcessor(this);
@@ -34,13 +35,17 @@ public class Editor extends ScreenAdapter implements InputProcessor {
 		world = new EntityManager();
 		// --------------------------------------
 		world.AddEntity(entityFactory.CreateWheelEntity(ServiceLocator.V_WIDTH / 2 - 57, ServiceLocator.V_HEIGHT / 2, 0,
-				0, eWheel.Cog1));
-		world.AddEntity(entityFactory.CreateWheelEntity(ServiceLocator.V_WIDTH / 2, ServiceLocator.V_HEIGHT / 2, 13, 0,
+				1, eWheel.Cog1));
+		world.AddEntity(entityFactory.CreateWheelEntity(ServiceLocator.V_WIDTH / 2, ServiceLocator.V_HEIGHT / 2, 13, -1,
 				eWheel.Cog_Shadow));
 		world.AddEntity(entityFactory.CreateWheelEntity(ServiceLocator.V_WIDTH / 2 + 57, ServiceLocator.V_HEIGHT / 2, 0,
-				0, eWheel.Cog_n));
+				1, eWheel.Cog_n));
+
 		world.AddEntity(entityFactory.CreateBoxEntity(50, 50, 0));
 
+		world.AddEntity(entityFactory.CreatePhysicsWheelEntity(50, 100, 0, 0, eWheel.Cog_n));
+		world.AddEntity(entityFactory.CreatePhysicsWheelEntity(50, 400, 0, 0, eWheel.Cog_n));
+		
 		world.Activate();
 		// --------------------------------------
 
@@ -96,19 +101,17 @@ public class Editor extends ScreenAdapter implements InputProcessor {
 			keyRdown = true;
 			break;
 		case Keys.D:
-			if (selectedItem != null){
-				if (!((CollisionSystem)ServiceLocator
-						.GetService(CollisionSystem.class))
-						.CheckHit(selectedItem))
+			if (selectedItem != null) {
+				if (!((CollisionSystem) ServiceLocator.GetService(CollisionSystem.class)).CheckHit(selectedItem))
 					world.AddEntity(entityFactory.CreateDuplicate(selectedItem));
 			}
 			break;
 		case Keys.X:
-			if (selectedItem != null){
+			if (selectedItem != null) {
 				selectedItem.Deactivate();
-					if (world.RemoveEntity(selectedItem))
-				selectedItem = null;
-				
+				if (world.RemoveEntity(selectedItem))
+					selectedItem = null;
+
 			}
 			break;
 		}
@@ -136,10 +139,11 @@ public class Editor extends ScreenAdapter implements InputProcessor {
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		if (selectedItem != null) {
-			if (!((CollisionSystem)ServiceLocator
-					.GetService(CollisionSystem.class))
-					.CheckHit(selectedItem)) {
+			if (!((CollisionSystem) ServiceLocator.GetService(CollisionSystem.class)).CheckHit(selectedItem)) {
 				((Visual) selectedItem.getComponent(Visual.class)).toggleWobbel();
+				Physics p = ((Physics) selectedItem.getComponent(Physics.class));
+				if (p != null)
+					p.Activate();
 				selectedItem = null;
 			}
 		} else {
@@ -147,6 +151,9 @@ public class Editor extends ScreenAdapter implements InputProcessor {
 			if (selectedItem == null)
 				return false;
 			((Visual) selectedItem.getComponent(Visual.class)).toggleWobbel();
+			Physics p = ((Physics) selectedItem.getComponent(Physics.class));
+			if (p != null)
+				p.Deactivate();
 		}
 		return true;
 	}
@@ -169,13 +176,11 @@ public class Editor extends ScreenAdapter implements InputProcessor {
 			Pose p = ((Pose) selectedItem.getComponent(Pose.class));
 			Visual v = ((Visual) selectedItem.getComponent(Visual.class));
 			if (keyRdown) {
-				p.SetAngle(screenY%180);
+				p.SetAngle(screenY % 180);
 			} else {
-				p.SetXPos(screenX - v.GetTexture().getRegionWidth()/2);
-				p.SetYPos(ServiceLocator.V_HEIGHT - screenY - v.GetTexture().getRegionHeight()/2);
-				if (((CollisionSystem)ServiceLocator
-						.GetService(CollisionSystem.class))
-						.CheckHit(selectedItem)) {
+				p.SetXPos(screenX - v.GetTexture().getRegionWidth() / 2);
+				p.SetYPos(ServiceLocator.V_HEIGHT - screenY - v.GetTexture().getRegionHeight() / 2);
+				if (((CollisionSystem) ServiceLocator.GetService(CollisionSystem.class)).CheckHit(selectedItem)) {
 					v.SetColor(Color.RED);
 				} else {
 					v.SetColor(Color.WHITE);

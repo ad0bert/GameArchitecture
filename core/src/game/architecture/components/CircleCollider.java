@@ -51,46 +51,50 @@ public class CircleCollider extends Collideable {
 		return (distance < (rad1 + rad2));
 	}
 	
-	@Override
-	public boolean IsHit(BoxCollider c){
-		if (!isActive || !c.isActive) return false;
-		Pose pos2 = (Pose)this.entity.getComponent(Pose.class);
-		Pose pos1 = (Pose)c.entity.getComponent(Pose.class);
+	private boolean TestHit(float angle, float cx, float cy, float rad, float rcx, float rcy, float rx, float ry, float rh, float rw){
+		// Rotate circle's center point back
+		angle = -(float) Math.toRadians(angle);
+		float dx =  (cx+rad) - rcx;
+		float dy =  (cy+rad) - rcy;
 		
-		Visual visual2 = (Visual)this.entity.getComponent(Visual.class);
-		Visual visual1 = (Visual)c.entity.getComponent(Visual.class);
-		
-		float H = visual1.GetTexture().getRegionHeight() * pos1.GetYScale();
-		float W = visual1.GetTexture().getRegionWidth() * pos1.GetXScale();
-		
-		float radius = visual2.GetTexture().getRegionHeight() / 2;
-		float angle = pos1.GetAngle();
+		float xC = rcx + dx * (float)Math.cos(angle) - dy * (float)Math.sin(angle);
+		float yC = rcy + dx * (float)Math.sin(angle) + dy * (float)Math.cos(angle);
+		 
+		// Closest point in the rectangle to the center of circle rotated backwards(unrotated)
+		float cdx = (float)Math.abs(xC - rcx);
+	    float cdy = (float)Math.abs(yC - rcy);
+
+	    if (cdx > (rw/2 + rad)) { return false; }
+	    if (cdy > (rh/2 + rad)) { return false; }
+
+	    if (cdx <= (rw/2)) { return true; } 
+	    if (cdy <= (rh/2)) { return true; }
+
+	    float cornerDistance_sq = ((cdx - rw/2) * (cdx - rw/2)) +
+	                         	  ((cdy - rh/2) * (cdy - rh/2));
+
+	    return (cornerDistance_sq <= (rad*rad));
+	}
 	
+	@Override
+	public boolean IsHit(BoxCollider box){
+		if (!isActive || !box.isActive) return false;
+		Pose circlePos = (Pose)this.entity.getComponent(Pose.class);
+		Pose boxPos = (Pose)box.entity.getComponent(Pose.class);
 		
-		float centerX = pos1.GetXPos() + visual1.GetTexture().getRegionWidth()  / 2;
-		float centerY = pos1.GetYPos() + visual1.GetTexture().getRegionHeight() / 2;
+		Visual circleVisual = (Visual)this.entity.getComponent(Visual.class);
+		Visual boxVisual = (Visual)box.entity.getComponent(Visual.class);
 		
-		float dx = (pos2.GetXPos() + radius) - centerX;
-		float dy = (pos2.GetYPos() + radius) - centerY;
+		float boxHight = boxVisual.GetTexture().getRegionHeight();
+		float boxWidth = boxVisual.GetTexture().getRegionWidth();
 		
-		float xC = centerX + dx * (float)Math.cos(angle) - dy * (float)Math.sin(angle);
-		float yC = centerY + dx * (float)Math.sin(angle) + dy * (float)Math.cos(angle);
+		float radius = circleVisual.GetTexture().getRegionHeight() / 2;
+		float angle = boxPos.GetAngle();
 		
-		dx = Math.abs((xC) - (pos1.GetXPos() + W));
-		dy = Math.abs((yC) - (pos1.GetYPos() + H));
-
-	    if (dx > (W / 2 + radius)) { return false; }
-	    if (dy > (H / 2 + radius)) { return false; }
-
-	    if (dx <= (W / 2)) { return true; } 
-	    if (dy <= (H / 2)) { return true; }
-
-	    float cornerDistance_sq = (dx - W / 2) * 
-	    						  (dx - W / 2) +
-	    						  (dy - H / 2) * 
-	    						  (dy - H / 2);
-
-	    return (cornerDistance_sq <= (radius*radius));
+		float centerX = boxPos.GetXPos() + boxVisual.GetTexture().getRegionWidth()  / 2;
+		float centerY = boxPos.GetYPos() + boxVisual.GetTexture().getRegionHeight() / 2;
+				
+		return TestHit(angle, circlePos.GetXPos(), circlePos.GetYPos(), radius, centerX, centerY, boxPos.GetXPos(), boxPos.GetYPos(), boxHight, boxWidth);
 	}
 
 	@Override

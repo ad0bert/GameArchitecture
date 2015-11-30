@@ -37,8 +37,8 @@ public class GameEntity implements Disposable {
 //				components.add(new Editable((Editable)c, this));
 //			else if(c.getClass().equals(GameLogic.class))
 //				components.add(new GameLogic((GameLogic)c, this));
-//			else if(c.getClass().equals(Physics.class))
-//				components.add(new Physics((Physics)c, this));
+			else if(c.getClass().equals(Physics.class))
+				components.add(new Physics((Physics)c, this));
 			else if(c.getClass().equals(StaticPos.class))
 				components.add(new StaticPos((StaticPos)c, this));
 			else if(c.getClass().equals(StaticRotatingPos.class))

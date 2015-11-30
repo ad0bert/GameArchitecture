@@ -5,7 +5,7 @@ import game.architecture.components.Component;
 public class PhysicsSystem extends SystemTemplate {
 
 	@Override
-	public void Update() {
+	public void Update() {	
 		for (Component p : comps){
 			p.Update();
 		}

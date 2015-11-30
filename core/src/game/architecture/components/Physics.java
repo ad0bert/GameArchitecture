@@ -2,10 +2,11 @@ package game.architecture.components;
 
 import game.architecture.engine.ServiceLocator;
 import game.architecture.entity.GameEntity;
+import game.architecture.systems.CollisionSystem;
 import game.architecture.systems.PhysicsSystem;
 
 public class Physics extends Component implements Pose {
-	
+
 	// TODO: make vector class
 	private float xPos;
 	private float yPos;
@@ -13,10 +14,26 @@ public class Physics extends Component implements Pose {
 	private float yScale;
 	private float xScale;
 	private float angle;
-	
-	public Physics(GameEntity e){
+	private float dT;
+	private float velocityX;
+	private float velocityY;
+
+	public Physics(GameEntity e) {
 		super(e);
 		ServiceLocator.GetService(PhysicsSystem.class).Add(this);
+	}
+
+	public Physics(Physics p, GameEntity gameEntity) {
+		super(p, gameEntity);
+		xPos = p.GetXPos();
+		yPos = p.GetYPos();
+		zPos = p.GetZPos();
+		yScale = p.GetYScale();
+		xScale = p.GetXScale();
+		angle = p.GetAngle();
+		velocityX = p.getVelocityX();
+		velocityY = p.getVelocityY();
+		dT = p.dT;
 	}
 
 	@Override
@@ -61,8 +78,14 @@ public class Physics extends Component implements Pose {
 
 	@Override
 	public void Update() {
-		// TODO Auto-generated method stub
-		
+		if (!this.isActive || ((CollisionSystem) ServiceLocator.GetService(CollisionSystem.class)).CheckHit(this.getEntity())) {
+			dT = 0;
+		}
+		if (xPos > 0 && yPos > 0) {
+			SetXPos(xPos + velocityX * dT);
+			SetYPos(yPos - velocityY * dT);
+			dT++;
+		}
 	}
 
 	@Override
@@ -82,7 +105,23 @@ public class Physics extends Component implements Pose {
 
 	@Override
 	public void SetYScale(float y) {
-		yScale = y;		
+		yScale = y;
+	}
+
+	public float getVelocityX() {
+		return velocityX;
+	}
+
+	public void setVelocityX(float velocityX) {
+		this.velocityX = velocityX;
+	}
+
+	public float getVelocityY() {
+		return velocityY;
+	}
+
+	public void setVelocityY(float velocityY) {
+		this.velocityY = velocityY;
 	}
 
 }

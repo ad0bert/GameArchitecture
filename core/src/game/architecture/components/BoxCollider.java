@@ -23,23 +23,24 @@ public class BoxCollider extends Collideable {
 		Pose pos = (Pose)this.entity.getComponent(Pose.class);
 		Visual visual = (Visual)this.entity.getComponent(Visual.class);
 		Ray r = ((CameraSystem)ServiceLocator.GetService(CameraSystem.class)).GetCamera().getPickRay(x, y);
-		float H = visual.GetTexture().getRegionHeight() * pos.GetYScale();
-		float W = visual.GetTexture().getRegionWidth() * pos.GetXScale();
+		float H = visual.GetTexture().getRegionHeight();
+		float W = visual.GetTexture().getRegionWidth();
 		
 		float angle = pos.GetAngle();
 		float centerX = pos.GetXPos() + visual.GetTexture().getRegionWidth()/2;
 		float centerY = pos.GetYPos() + visual.GetTexture().getRegionHeight()/2;
 		
-		float dx =  Math.abs(r.origin.x - centerX);
-		float dy =  Math.abs(r.origin.y - centerY);
+		float dx =  r.origin.x - centerX;
+		float dy =  r.origin.y - centerY;
 		
+		angle = -(float) Math.toRadians(angle);
 		float xC = centerX + dx * (float)Math.cos(angle) - dy * (float)Math.sin(angle);
 		float yC = centerY + dx * (float)Math.sin(angle) + dy * (float)Math.cos(angle);
 		
-		return xC >= pos.GetXPos() + W/2 && 
-			   xC < pos.GetXPos() + W + W/2 && 
-			   yC >= pos.GetYPos() + H/2 && 
-			   yC < pos.GetYPos() + H  + H/2 ? true : false;
+		return xC >= pos.GetXPos() && 
+			   xC <  pos.GetXPos() + W && 
+			   yC >= pos.GetYPos() && 
+			   yC <  pos.GetYPos() + H ? true : false;
 	}
 
 	@Override
