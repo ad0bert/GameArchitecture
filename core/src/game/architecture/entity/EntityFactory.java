@@ -75,7 +75,11 @@ public class EntityFactory {
 		pos.SetAngle(angle);
 		pos.SetXScale(1);
 		pos.SetYScale(1);
-		((Physics)pos).setVelocityY(0.1f);
+		((Physics)pos).setVelocityX(0);
+		((Physics)pos).setVelocityY(0);
+		((Physics)pos).setMass(1);
+		((Physics)pos).setForceX(0f);
+		((Physics)pos).setForceY(-10f);
 		wheel.AddComponent((Physics)pos);
 		
 		Collideable col = new CircleCollider(wheel);
