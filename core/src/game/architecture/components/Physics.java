@@ -123,8 +123,23 @@ public class Physics extends Component implements Pose {
 
 		float dvdt = 1.0f / 6.0f * (a.dv + 2.0f * (b.dv + c.dv) + d.dv);
 
-		xPos = xPos + dxdt * dT;
+		
+		yPos = yPos + dxdt * dT;
 		velocityX = velocityX  + dvdt * dT;
+		
+		/*TODO: 
+		 * Switch from integrating velocity directly from acceleration to integrating momentum from force instead 
+		 * (the derivative of momentum is force). You will need to add “mass” and “inverseMass” to the State struct and 
+		 * I recommend adding a method called “recalculate” which updates velocity = momentum * inverseMass whenever it is called.
+		 * Every time you modify the momentum value you need to recalculate the velocity. You should also rename the acceleration
+		 * method to “force”. Why do this? Later on when working with rotational dynamics you will need to work with angular
+		 * momentum directly instead of angular velocity, so you might as well start now.
+		 */
+		
+		
+		if(yPos < 0)
+			yPos=0;
+		
 	}
 
 	@Override
