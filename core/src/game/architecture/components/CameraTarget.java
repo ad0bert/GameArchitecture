@@ -5,7 +5,7 @@ import game.architecture.entity.GameEntity;
 public class CameraTarget extends Component {
 	
 	public CameraTarget(GameEntity e){
-		super(e);
+		this.entity = e;
 	}
 	
 	public float GetXPos(){

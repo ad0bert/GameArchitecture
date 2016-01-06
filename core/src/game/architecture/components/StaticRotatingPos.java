@@ -4,11 +4,11 @@ import game.architecture.entity.GameEntity;
 public class StaticRotatingPos extends Component implements Pose{
 
 	public StaticRotatingPos(GameEntity e) {
-		super(e);
+		this.entity = e;
 	}
 
 	public StaticRotatingPos(StaticRotatingPos p, GameEntity e){
-		super(p, e);
+		this.entity = e;
 		xPos = p.GetXPos();
 		yPos = p.GetYPos();
 		zPos = p.GetZPos();

@@ -5,15 +5,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
-import game.architecture.components.Pose;
-import game.architecture.components.StaticRotatingPos;
-import game.architecture.components.Visual;
 import game.architecture.entity.EntityFactory;
 import game.architecture.entity.EntityFactory.eWheel;
 import game.architecture.entity.EntityManager;
-import game.architecture.entity.GameEntity;
 import game.architecture.menu.MenuScreen;
 import game.architecture.menu.Workbench;
 

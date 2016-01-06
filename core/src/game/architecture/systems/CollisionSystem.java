@@ -1,27 +1,22 @@
 package game.architecture.systems;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import game.architecture.components.Collideable;
+import game.architecture.components.AbstractCollider;
 import game.architecture.components.Component;
-import game.architecture.entity.GameEntity;
 
 public class CollisionSystem extends SystemTemplate {
-
-	private List<GameEntity> entities = new ArrayList<GameEntity>();
 	
 	@Override
 	public void Update() {
-		entities.clear();
-		for (Component c1 : comps){
-			for (Component c2 : comps){
-				if (c1.equals(c2))
-					continue;
-				if (!((Collideable)c1).IsHit((Collideable)c2))
-					continue;
-					
-				entities.add(c1.getEntity());
+		clearCollisions();
+		
+		for (int i = 0; i < comps.size(); ++i) {
+			for (int j = i + 1; j < comps.size(); ++j) {
+				AbstractCollider a = (AbstractCollider) comps.get(i);
+				AbstractCollider b = (AbstractCollider) comps.get(j);
+				if (a.IsHit(b)) {
+					a.setCollision(b.getEntity());
+					b.setCollision(a.getEntity());
+				}
 			}
 		}
 	}
@@ -36,7 +31,9 @@ public class CollisionSystem extends SystemTemplate {
 		comps.remove(c);
 	}
 	
-	public boolean CheckHit(GameEntity ge){
-		return entities.contains(ge);
+	private void clearCollisions() {
+		for (int i = 0; i < comps.size(); ++i) {
+			((AbstractCollider)comps.get(i)).clearCollision();
+		}
 	}
 }

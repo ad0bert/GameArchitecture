@@ -5,16 +5,18 @@ import com.badlogic.gdx.math.collision.Ray;
 import game.architecture.engine.ServiceLocator;
 import game.architecture.entity.GameEntity;
 import game.architecture.systems.CameraSystem;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import game.architecture.systems.CollisionSystem;
 
-public class BoxCollider extends Collideable {
+public class BoxCollider extends AbstractCollider {
 
 	public BoxCollider(GameEntity e) {
-		super(e);
+		this.entity = e;
+		ServiceLocator.GetService(CollisionSystem.class).Add(this);
 	}
 
-	public BoxCollider(BoxCollider c, GameEntity e) {
-		super(c, e);
+	public BoxCollider(BoxCollider c, GameEntity e){
+		this.entity = e;
+		ServiceLocator.GetService(CollisionSystem.class).Add(this);
 	}
 
 	@Override

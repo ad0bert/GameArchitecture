@@ -5,8 +5,7 @@ import game.architecture.entity.GameEntity;
 public class Editable extends Component {
 
 	public Editable(GameEntity e) {
-		super(e);
-		// TODO Auto-generated constructor stub
+		this.entity = e;
 	}
 
 	@Override

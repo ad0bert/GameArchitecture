@@ -2,7 +2,6 @@ package game.architecture.components;
 
 import game.architecture.engine.ServiceLocator;
 import game.architecture.entity.GameEntity;
-import game.architecture.systems.CollisionSystem;
 import game.architecture.systems.PhysicsSystem;
 
 public class Physics extends Component implements Pose {
@@ -31,13 +30,13 @@ public class Physics extends Component implements Pose {
 	};
 
 	public Physics(GameEntity e) {
-		super(e);
+		this.entity = e;
 		dT = 0.1f;
 		ServiceLocator.GetService(PhysicsSystem.class).Add(this);
 	}
 
 	public Physics(Physics p, GameEntity gameEntity) {
-		super(p, gameEntity);
+		this.entity = gameEntity;
 		xPos = p.GetXPos();
 		yPos = p.GetYPos();
 		zPos = p.GetZPos();
@@ -144,13 +143,13 @@ public class Physics extends Component implements Pose {
 
 	@Override
 	public void Update() {
-		if (!this.isActive
-				|| ((CollisionSystem) ServiceLocator.GetService(CollisionSystem.class)).CheckHit(this.getEntity())) {
-			velocityX = 0;
-			velocityY = 0;
-			return;
-		}
-		RK4();
+//		if (!this.isActive
+//				|| ((CollisionSystem) ServiceLocator.GetService(CollisionSystem.class)).CheckHit(this.getEntity())) {
+//			velocityX = 0;
+//			velocityY = 0;
+//			return;
+//		}
+//		RK4();
 //		SetXPos(xPos + velocityX * dT);
 //		SetYPos(yPos + velocityY * dT);
 //

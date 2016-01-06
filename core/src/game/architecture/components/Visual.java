@@ -3,7 +3,6 @@ package game.architecture.components;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.collision.Ray;
 
 import game.architecture.engine.ServiceLocator;
 import game.architecture.entity.GameEntity;
@@ -18,13 +17,13 @@ public class Visual extends Component {
 	private Color col;
 	
 	public Visual(GameEntity e){
-		super(e);
+		this.entity = e;
 		col = Color.WHITE;
 		ServiceLocator.GetService(RenderSystem.class).Add(this);
 	}
 	
 	public Visual (Visual v, GameEntity e){
-		super(v, e);
+		this.entity = e;
 		col = v.col;
 		texture = v.GetTexture();
 		ServiceLocator.GetService(RenderSystem.class).Add(this);

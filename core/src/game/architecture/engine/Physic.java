@@ -7,6 +7,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 
+import game.architecture.components.Collideable;
 import game.architecture.components.Physics;
 import game.architecture.components.Pose;
 import game.architecture.components.Visual;
@@ -16,7 +17,6 @@ import game.architecture.entity.EntityManager;
 import game.architecture.entity.GameEntity;
 import game.architecture.menu.MenuScreen;
 import game.architecture.menu.Workbench;
-import game.architecture.systems.CollisionSystem;
 
 public class Physic extends ScreenAdapter implements InputProcessor {
 	private EntityManager world;
@@ -102,7 +102,8 @@ public class Physic extends ScreenAdapter implements InputProcessor {
 			break;
 		case Keys.D:
 			if (selectedItem != null) {
-				if (!((CollisionSystem) ServiceLocator.GetService(CollisionSystem.class)).CheckHit(selectedItem))
+				Collideable c = (Collideable)selectedItem.getComponent(Collideable.class);
+				if (!c.isCollision())
 					world.AddEntity(entityFactory.CreateDuplicate(selectedItem));
 			}
 			break;
@@ -139,7 +140,8 @@ public class Physic extends ScreenAdapter implements InputProcessor {
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		if (selectedItem != null) {
-			if (!((CollisionSystem) ServiceLocator.GetService(CollisionSystem.class)).CheckHit(selectedItem)) {
+			Collideable c = (Collideable)selectedItem.getComponent(Collideable.class);
+			if (!c.isCollision()) {
 				((Visual) selectedItem.getComponent(Visual.class)).toggleWobbel();
 				Physics p = ((Physics) selectedItem.getComponent(Physics.class));
 				if (p != null)
@@ -180,7 +182,8 @@ public class Physic extends ScreenAdapter implements InputProcessor {
 			} else {
 				p.SetXPos(screenX - v.GetTexture().getRegionWidth() / 2);
 				p.SetYPos(ServiceLocator.V_HEIGHT - screenY - v.GetTexture().getRegionHeight() / 2);
-				if (((CollisionSystem) ServiceLocator.GetService(CollisionSystem.class)).CheckHit(selectedItem)) {
+				Collideable c = (Collideable)selectedItem.getComponent(Collideable.class);
+				if (c.isCollision()) {
 					v.SetColor(Color.RED);
 				} else {
 					v.SetColor(Color.WHITE);

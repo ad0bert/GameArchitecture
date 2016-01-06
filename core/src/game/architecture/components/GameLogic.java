@@ -5,8 +5,7 @@ import game.architecture.entity.GameEntity;
 public class GameLogic extends Component {
 
 	public GameLogic(GameEntity e) {
-		super(e);
-		// TODO Auto-generated constructor stub
+		this.entity = e;
 	}
 
 	@Override

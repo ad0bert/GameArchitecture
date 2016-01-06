@@ -6,12 +6,8 @@ import java.util.List;
 import com.badlogic.gdx.utils.Disposable;
 
 import game.architecture.components.BoxCollider;
-import game.architecture.components.CameraTarget;
 import game.architecture.components.CircleCollider;
-import game.architecture.components.Collideable;
 import game.architecture.components.Component;
-import game.architecture.components.Editable;
-import game.architecture.components.GameLogic;
 import game.architecture.components.Physics;
 import game.architecture.components.StaticPos;
 import game.architecture.components.StaticRotatingPos;
@@ -62,6 +58,7 @@ public class GameEntity implements Disposable {
 			c.Deactivate();
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public Component getComponent(Class c){
 		for (Component comp : components){
 			if (c.isInstance(comp))

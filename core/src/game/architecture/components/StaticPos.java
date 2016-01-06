@@ -5,12 +5,11 @@ import game.architecture.entity.GameEntity;
 public class StaticPos extends Component implements Pose{
 
 	public StaticPos(GameEntity e) {
-		super(e);
-		// TODO Auto-generated constructor stub
+		this.entity = e;
 	}
 
 	public StaticPos(StaticPos p, GameEntity e){
-		super(p, e);
+		this.entity = e;
 		xPos = p.GetXPos();
 		yPos = p.GetYPos();
 		zPos = p.GetZPos();

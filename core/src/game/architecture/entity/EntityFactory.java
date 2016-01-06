@@ -3,9 +3,9 @@ package game.architecture.entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
+import game.architecture.components.AbstractCollider;
 import game.architecture.components.BoxCollider;
 import game.architecture.components.CircleCollider;
-import game.architecture.components.Collideable;
 import game.architecture.components.Physics;
 import game.architecture.components.Pose;
 import game.architecture.components.StaticPos;
@@ -44,7 +44,7 @@ public class EntityFactory {
 		((StaticRotatingPos)pos).setAngularSpeed(speed);
 		wheel.AddComponent((StaticRotatingPos)pos);
 		
-		Collideable col = new CircleCollider(wheel);
+		AbstractCollider col = new CircleCollider(wheel);
 		wheel.AddComponent(col);
 		
 		return wheel;
@@ -82,7 +82,7 @@ public class EntityFactory {
 		((Physics)pos).setForceY(-10f);
 		wheel.AddComponent((Physics)pos);
 		
-		Collideable col = new CircleCollider(wheel);
+		AbstractCollider col = new CircleCollider(wheel);
 		wheel.AddComponent(col);
 		
 		return wheel;
@@ -101,7 +101,7 @@ public class EntityFactory {
 		pos.SetXScale(1);
 		pos.SetYScale(1);
 		plattform.AddComponent((StaticPos)pos);
-		Collideable col = new BoxCollider(plattform);
+		AbstractCollider col = new BoxCollider(plattform);
 		plattform.AddComponent(col);
 		return plattform;
 	}

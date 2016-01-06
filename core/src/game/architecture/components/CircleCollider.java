@@ -5,16 +5,20 @@ import com.badlogic.gdx.math.collision.Ray;
 import game.architecture.engine.ServiceLocator;
 import game.architecture.entity.GameEntity;
 import game.architecture.systems.CameraSystem;
+import game.architecture.systems.CollisionSystem;
 
-public class CircleCollider extends Collideable {
+public class CircleCollider extends AbstractCollider {
 
 	public CircleCollider(GameEntity e) {
-		super(e);
+		this.entity = e;
+		ServiceLocator.GetService(CollisionSystem.class).Add(this);
 	}
 
 	public CircleCollider(CircleCollider c, GameEntity e){
-		super(c, e);
+		this.entity = e;
+		ServiceLocator.GetService(CollisionSystem.class).Add(this);
 	}
+	
 	@Override
 	public boolean IsHit(float x, float y){
 		if (!isActive) return false;
