@@ -3,14 +3,9 @@ package game.architecture.entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
-import game.architecture.components.AbstractCollider;
-import game.architecture.components.BoxCollider;
-import game.architecture.components.CircleCollider;
-import game.architecture.components.Physics;
-import game.architecture.components.Pose;
-import game.architecture.components.StaticPos;
-import game.architecture.components.StaticRotatingPos;
-import game.architecture.components.Visual;
+import game.architecture.components.*;
+import game.architecture.components.collider.*;
+import game.architecture.components.physics.Body;
 
 public class EntityFactory {
 	public enum eFactory{Edit, Play};
@@ -69,18 +64,15 @@ public class EntityFactory {
 			break;
 		}
 		wheel.AddComponent(visual);
-		Pose pos = new Physics(wheel);
+		Pose pos = new Body(wheel);
 		pos.SetXPos(x);
 		pos.SetYPos(y);
 		pos.SetAngle(angle);
 		pos.SetXScale(1);
 		pos.SetYScale(1);
-		((Physics)pos).setVelocityX(0);
-		((Physics)pos).setVelocityY(0);
-		((Physics)pos).setMass(1);
-		((Physics)pos).setForceX(0f);
-		((Physics)pos).setForceY(-10f);
-		wheel.AddComponent((Physics)pos);
+		((Body)pos).mass(1);
+
+		wheel.AddComponent((Body)pos);
 		
 		AbstractCollider col = new CircleCollider(wheel);
 		wheel.AddComponent(col);

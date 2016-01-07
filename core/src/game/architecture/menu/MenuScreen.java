@@ -109,7 +109,7 @@ public class MenuScreen extends ScreenAdapter {
 
 		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		((CameraSystem)ServiceLocator.GetService(CameraSystem.class)).Update();
+		((CameraSystem)ServiceLocator.GetService(CameraSystem.class)).Update(delta);
 		
 		stage.act(delta);
 		stage.draw();

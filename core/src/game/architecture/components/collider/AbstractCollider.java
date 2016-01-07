@@ -1,5 +1,6 @@
-package game.architecture.components;
+package game.architecture.components.collider;
 
+import game.architecture.components.Component;
 import game.architecture.entity.GameEntity;
 
 public abstract class AbstractCollider extends Component implements Collideable{

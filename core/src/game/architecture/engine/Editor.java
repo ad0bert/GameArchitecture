@@ -7,9 +7,9 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 
-import game.architecture.components.Collideable;
 import game.architecture.components.Pose;
 import game.architecture.components.Visual;
+import game.architecture.components.collider.Collideable;
 import game.architecture.entity.EntityFactory;
 import game.architecture.entity.EntityFactory.eWheel;
 import game.architecture.entity.EntityManager;
@@ -53,7 +53,7 @@ public class Editor extends ScreenAdapter implements InputProcessor {
 
 	@Override
 	public void render(float delta) {
-		ServiceLocator.Update();
+		ServiceLocator.Update(delta);
 	}
 
 	@Override

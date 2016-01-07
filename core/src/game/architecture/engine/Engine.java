@@ -43,7 +43,7 @@ public class Engine implements Screen, InputProcessor{
 
 	@Override
 	public void render(float delta) {
-		ServiceLocator.Update();
+		ServiceLocator.Update(delta);
 		
 	}
 

@@ -20,7 +20,7 @@ public class CameraSystem extends SystemTemplate {
 	}
 	
 	@Override
-	public void Update() {
+	public void Update(float delta) {
 		camera.update();
 
 	}

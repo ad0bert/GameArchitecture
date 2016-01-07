@@ -5,7 +5,8 @@ import java.util.List;
 
 import com.badlogic.gdx.utils.Disposable;
 
-import game.architecture.components.Collideable;
+import game.architecture.components.collider.Collideable;
+
 
 public class EntityManager implements Disposable {
 

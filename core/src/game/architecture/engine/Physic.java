@@ -7,16 +7,18 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 
-import game.architecture.components.Collideable;
-import game.architecture.components.Physics;
 import game.architecture.components.Pose;
 import game.architecture.components.Visual;
+import game.architecture.components.collider.Collideable;
+import game.architecture.components.physics.Body;
+import game.architecture.components.physics.Spring;
 import game.architecture.entity.EntityFactory;
 import game.architecture.entity.EntityFactory.eWheel;
 import game.architecture.entity.EntityManager;
 import game.architecture.entity.GameEntity;
 import game.architecture.menu.MenuScreen;
 import game.architecture.menu.Workbench;
+import game.architecture.systems.PhysicsSystem;
 
 public class Physic extends ScreenAdapter implements InputProcessor {
 	private EntityManager world;
@@ -34,21 +36,31 @@ public class Physic extends ScreenAdapter implements InputProcessor {
 	public void Init() {
 		world = new EntityManager();
 		// --------------------------------------
-		world.AddEntity(entityFactory.CreateWheelEntity(ServiceLocator.V_WIDTH / 2 - 57, ServiceLocator.V_HEIGHT / 2, 0,
-				1, eWheel.Cog1));
-		world.AddEntity(entityFactory.CreateWheelEntity(ServiceLocator.V_WIDTH / 2, ServiceLocator.V_HEIGHT / 2, 13, -1,
-				eWheel.Cog_Shadow));
-		world.AddEntity(entityFactory.CreateWheelEntity(ServiceLocator.V_WIDTH / 2 + 57, ServiceLocator.V_HEIGHT / 2, 0,
-				1, eWheel.Cog_n));
+//		world.AddEntity(entityFactory.CreateWheelEntity(ServiceLocator.V_WIDTH / 2 - 57, ServiceLocator.V_HEIGHT / 2, 0,
+//				1, eWheel.Cog1));
+//		world.AddEntity(entityFactory.CreateWheelEntity(ServiceLocator.V_WIDTH / 2, ServiceLocator.V_HEIGHT / 2, 13, -1,
+//				eWheel.Cog_Shadow));
+//		world.AddEntity(entityFactory.CreateWheelEntity(ServiceLocator.V_WIDTH / 2 + 57, ServiceLocator.V_HEIGHT / 2, 0,
+//				1, eWheel.Cog_n));
 
 		world.AddEntity(entityFactory.CreateBoxEntity(50, 50, 0));
 
-		world.AddEntity(entityFactory.CreatePhysicsWheelEntity(50, 100, 0, 0, eWheel.Cog_n));
-		world.AddEntity(entityFactory.CreatePhysicsWheelEntity(50, 400, 0, 0, eWheel.Cog_n));
+		GameEntity e1 = entityFactory.CreatePhysicsWheelEntity(0, 0, 0,	1, eWheel.Cog1);
+		GameEntity e2 = entityFactory.CreatePhysicsWheelEntity(100, 100, 0,	1, eWheel.Cog_n);
+				
+		Spring sp = new Spring(e1, e2);
+		
+		sp.entityActivated();
+		world.AddEntity(e1);
+		world.AddEntity(e2);
+		
+		
 		
 		world.Activate();
 		// --------------------------------------
 
+		//((PhysicsSystem)ServiceLocator.GetService(PhysicsSystem.class)).gravity(0, 10f);
+		//((PhysicsSystem)ServiceLocator.GetService(PhysicsSystem.class)).timeStep(1f);
 	}
 
 	@Override
@@ -58,7 +70,7 @@ public class Physic extends ScreenAdapter implements InputProcessor {
 
 	@Override
 	public void render(float delta) {
-		ServiceLocator.Update();
+		ServiceLocator.Update(delta);
 	}
 
 	@Override
@@ -143,7 +155,7 @@ public class Physic extends ScreenAdapter implements InputProcessor {
 			Collideable c = (Collideable)selectedItem.getComponent(Collideable.class);
 			if (!c.isCollision()) {
 				((Visual) selectedItem.getComponent(Visual.class)).toggleWobbel();
-				Physics p = ((Physics) selectedItem.getComponent(Physics.class));
+				Body p = ((Body) selectedItem.getComponent(Body.class));
 				if (p != null)
 					p.Activate();
 				selectedItem = null;
@@ -153,7 +165,7 @@ public class Physic extends ScreenAdapter implements InputProcessor {
 			if (selectedItem == null)
 				return false;
 			((Visual) selectedItem.getComponent(Visual.class)).toggleWobbel();
-			Physics p = ((Physics) selectedItem.getComponent(Physics.class));
+			Body p = ((Body) selectedItem.getComponent(Body.class));
 			if (p != null)
 				p.Deactivate();
 		}

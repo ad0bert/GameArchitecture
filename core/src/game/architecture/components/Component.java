@@ -5,14 +5,6 @@ import game.architecture.entity.GameEntity;
 public abstract class Component {
 	protected boolean isActive = false;
 	protected GameEntity entity;
-	
-//	public Component(GameEntity e){
-//		entity = e;
-//	}
-//	
-//	public Component(Component c, GameEntity e) {
-//		entity = e;
-//	}
 
 	public void Activate(){
 		isActive = true;
@@ -25,5 +17,10 @@ public abstract class Component {
 	public GameEntity getEntity(){
 		return entity;
 	}
+	
+	public boolean getIsActive(){
+		return isActive;
+	}
+	
 	public void Update(){}
 }

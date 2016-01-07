@@ -41,9 +41,9 @@ public final class ServiceLocator {
 		return null;
 	}
 
-	public static void Update() {
+	public static void Update(float delta) {
 		for (SystemTemplate st : systems)
-			st.Update();
+			st.Update(delta);
 	}
 
 	public static boolean isRunning() {

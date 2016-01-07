@@ -1,7 +1,9 @@
-package game.architecture.components;
+package game.architecture.components.collider;
 
 import com.badlogic.gdx.math.collision.Ray;
 
+import game.architecture.components.Pose;
+import game.architecture.components.Visual;
 import game.architecture.engine.ServiceLocator;
 import game.architecture.entity.GameEntity;
 import game.architecture.systems.CameraSystem;
@@ -82,12 +84,12 @@ public class CircleCollider extends AbstractCollider {
 	
 	@Override
 	public boolean IsHit(BoxCollider box){
-		if (!isActive || !box.isActive) return false;
+		if (!isActive || !box.getIsActive()) return false;
 		Pose circlePos = (Pose)this.entity.getComponent(Pose.class);
-		Pose boxPos = (Pose)box.entity.getComponent(Pose.class);
+		Pose boxPos = (Pose)box.getEntity().getComponent(Pose.class);
 		
 		Visual circleVisual = (Visual)this.entity.getComponent(Visual.class);
-		Visual boxVisual = (Visual)box.entity.getComponent(Visual.class);
+		Visual boxVisual = (Visual)box.getEntity().getComponent(Visual.class);
 		
 		float boxHight = boxVisual.GetTexture().getRegionHeight();
 		float boxWidth = boxVisual.GetTexture().getRegionWidth();

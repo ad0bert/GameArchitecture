@@ -5,13 +5,13 @@ import java.util.List;
 
 import com.badlogic.gdx.utils.Disposable;
 
-import game.architecture.components.BoxCollider;
-import game.architecture.components.CircleCollider;
 import game.architecture.components.Component;
-import game.architecture.components.Physics;
 import game.architecture.components.StaticPos;
 import game.architecture.components.StaticRotatingPos;
 import game.architecture.components.Visual;
+import game.architecture.components.collider.BoxCollider;
+import game.architecture.components.collider.CircleCollider;
+import game.architecture.components.physics.Body;
 
 public class GameEntity implements Disposable {
 	private List<Component> components;
@@ -33,8 +33,8 @@ public class GameEntity implements Disposable {
 //				components.add(new Editable((Editable)c, this));
 //			else if(c.getClass().equals(GameLogic.class))
 //				components.add(new GameLogic((GameLogic)c, this));
-			else if(c.getClass().equals(Physics.class))
-				components.add(new Physics((Physics)c, this));
+			else if(c.getClass().equals(Body.class))
+				components.add(new Body((Body)c, this));
 			else if(c.getClass().equals(StaticPos.class))
 				components.add(new StaticPos((StaticPos)c, this));
 			else if(c.getClass().equals(StaticRotatingPos.class))

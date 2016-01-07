@@ -1,12 +1,12 @@
 package game.architecture.systems;
 
-import game.architecture.components.AbstractCollider;
 import game.architecture.components.Component;
+import game.architecture.components.collider.AbstractCollider;
 
 public class CollisionSystem extends SystemTemplate {
 	
 	@Override
-	public void Update() {
+	public void Update(float delta) {
 		clearCollisions();
 		
 		for (int i = 0; i < comps.size(); ++i) {

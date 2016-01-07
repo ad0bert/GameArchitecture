@@ -1,4 +1,4 @@
-package game.architecture.components;
+package game.architecture.components.collider;
 
 import game.architecture.entity.GameEntity;
 

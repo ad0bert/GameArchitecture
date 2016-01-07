@@ -1,7 +1,9 @@
-package game.architecture.components;
+package game.architecture.components.collider;
 
 import com.badlogic.gdx.math.collision.Ray;
 
+import game.architecture.components.Pose;
+import game.architecture.components.Visual;
 import game.architecture.engine.ServiceLocator;
 import game.architecture.entity.GameEntity;
 import game.architecture.systems.CameraSystem;
@@ -47,7 +49,7 @@ public class BoxCollider extends AbstractCollider {
 
 	@Override
 	public boolean IsHit(CircleCollider c) {
-		if (!isActive || !c.isActive) return false;
+		if (!isActive || !c.getIsActive()) return false;
 		return c.IsHit(this);
 	}
 
