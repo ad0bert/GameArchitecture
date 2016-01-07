@@ -18,7 +18,6 @@ import game.architecture.entity.EntityManager;
 import game.architecture.entity.GameEntity;
 import game.architecture.menu.MenuScreen;
 import game.architecture.menu.Workbench;
-import game.architecture.systems.PhysicsSystem;
 
 public class Physic extends ScreenAdapter implements InputProcessor {
 	private EntityManager world;
@@ -51,6 +50,10 @@ public class Physic extends ScreenAdapter implements InputProcessor {
 		Spring sp = new Spring(e1, e2);
 		
 		sp.entityActivated();
+		sp.springConstant(100f);
+		
+		//((PhysicsSystem)ServiceLocator.GetService(PhysicsSystem.class)).gravity(0, -5);
+		
 		world.AddEntity(e1);
 		world.AddEntity(e2);
 		

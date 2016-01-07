@@ -135,7 +135,7 @@ public class Body extends Component implements Pose {
 
 	@Override
 	public void SetYPos(float y) {
-		pos[0] = y;
+		pos[1] = y;
 	}
 
 	@Override
