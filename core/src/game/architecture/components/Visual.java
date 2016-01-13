@@ -10,26 +10,40 @@ import game.architecture.systems.RenderSystem;
 
 public class Visual extends Component {
 
-	private TextureRegion texture;
+	private transient TextureRegion texture;
+	private String textureName;
 	private boolean isWobbel = false;
 	private float wobbel = 0;
 	private int count = 0;
-	private Color col;
+	
+	private transient Color col;
 	
 	public Visual(GameEntity e){
 		this.entity = e;
 		col = Color.WHITE;
-		ServiceLocator.GetService(RenderSystem.class).Add(this);
 	}
 	
 	public Visual (Visual v, GameEntity e){
 		this.entity = e;
 		col = v.col;
 		texture = v.GetTexture();
+		textureName = v.getTextureName();
+	}
+	
+	@Override
+	public void Activate(){
+		super.Activate();
 		ServiceLocator.GetService(RenderSystem.class).Add(this);
 	}
 	
-	public void AddTexture(TextureRegion tex){	
+	@Override
+	public void Deactivate(){
+		super.Deactivate();
+		ServiceLocator.GetService(RenderSystem.class).Remove(this);
+	}
+	
+	public void AddTexture(TextureRegion tex, String textureName){	
+		this.textureName = textureName;
 		texture = tex;
 	}
 	
@@ -79,4 +93,9 @@ public class Visual extends Component {
 	public void SetColor(Color col) {
 		this.col = col;
 	}
+
+	public String getTextureName() {
+		return textureName;
+	}
+
 }

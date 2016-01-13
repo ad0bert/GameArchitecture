@@ -4,6 +4,7 @@ import game.architecture.components.Component;
 import game.architecture.components.Pose;
 import game.architecture.engine.ServiceLocator;
 import game.architecture.entity.GameEntity;
+import game.architecture.systems.CollisionSystem;
 import game.architecture.systems.PhysicsSystem;
 
 public class Body extends Component implements Pose {
@@ -12,7 +13,7 @@ public class Body extends Component implements Pose {
 
 	float xScale;
 	float yScale;
-	
+
 	/** The velocity of this body, including angular velocity. */
 	float vel[] = new float[3];
 
@@ -28,15 +29,13 @@ public class Body extends Component implements Pose {
 	/** The inverse moment of inertia of this body (1.0 / moi). */
 	private float invMoi = 1;
 
-	public Body(GameEntity e){
+	public Body(GameEntity e) {
 		this.entity = e;
-		((PhysicsSystem)ServiceLocator.GetService(PhysicsSystem.class)).addBody(this);
 	}
-	
+
 	public Body(Body c, GameEntity gameEntity) {
 		this.entity = gameEntity;
-		//this = c.clone();
-		((PhysicsSystem)ServiceLocator.GetService(PhysicsSystem.class)).addBody(this);
+		// this = c.clone();
 	}
 
 	public Body mass(float mass) {
@@ -130,7 +129,7 @@ public class Body extends Component implements Pose {
 
 	@Override
 	public void SetZPos(float z) {
-		//zPos = z;
+		// zPos = z;
 	}
 
 	@Override
@@ -142,6 +141,7 @@ public class Body extends Component implements Pose {
 	public float GetAngle() {
 		return pos[2];
 	}
+
 	@Override
 	public void SetAngle(float angle) {
 		pos[2] = angle;
@@ -150,7 +150,7 @@ public class Body extends Component implements Pose {
 	@Override
 	public void Update() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -171,5 +171,17 @@ public class Body extends Component implements Pose {
 	@Override
 	public void SetYScale(float y) {
 		yScale = y;
+	}
+
+	@Override
+	public void Activate() {
+		super.Activate();
+		((PhysicsSystem)ServiceLocator.GetService(PhysicsSystem.class)).addBody(this);
+	}
+
+	@Override
+	public void Deactivate() {
+		super.Deactivate();
+		((PhysicsSystem)ServiceLocator.GetService(PhysicsSystem.class)).removeBody(this);
 	}
 }

@@ -1,11 +1,13 @@
 package game.architecture.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.utils.Disposable;
 
 import game.architecture.components.Component;
+import game.architecture.components.Persistable;
 import game.architecture.components.StaticPos;
 import game.architecture.components.StaticRotatingPos;
 import game.architecture.components.Visual;
@@ -13,7 +15,11 @@ import game.architecture.components.collider.BoxCollider;
 import game.architecture.components.collider.CircleCollider;
 import game.architecture.components.physics.Body;
 
-public class GameEntity implements Disposable {
+public class GameEntity implements Disposable, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private List<Component> components;
 	
 	public GameEntity(){
@@ -41,6 +47,8 @@ public class GameEntity implements Disposable {
 				components.add(new StaticRotatingPos((StaticRotatingPos)c, this));
 			else if(c.getClass().equals(Visual.class))
 				components.add(new Visual((Visual)c, this));
+			else if(c.getClass().equals(Persistable.class))
+				components.add(new Persistable(this));
 		}
 	}
 	

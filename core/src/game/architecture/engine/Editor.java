@@ -1,5 +1,8 @@
 package game.architecture.engine;
 
+import java.io.File;
+import java.io.IOException;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -109,6 +112,29 @@ public class Editor extends ScreenAdapter implements InputProcessor {
 				selectedItem = null;
 				
 			}
+			break;
+		
+		case Keys.S:
+			File store = new File("persi.bse");
+			
+			try {
+				world.store(store);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		
+		case Keys.L:
+			File load = new File("persi.bse");
+			
+			try {
+				world.restore(load);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			break;
 		}
 

@@ -13,12 +13,10 @@ public class CircleCollider extends AbstractCollider {
 
 	public CircleCollider(GameEntity e) {
 		this.entity = e;
-		ServiceLocator.GetService(CollisionSystem.class).Add(this);
 	}
 
 	public CircleCollider(CircleCollider c, GameEntity e){
 		this.entity = e;
-		ServiceLocator.GetService(CollisionSystem.class).Add(this);
 	}
 	
 	@Override

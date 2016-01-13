@@ -17,16 +17,16 @@ public class EntityFactory {
 		TextureAtlas ta = new TextureAtlas(Gdx.files.internal("atlas.pack"));
 		switch(type){
 		case Cog1:
-			visual.AddTexture(ta.findRegion("cog1"));
+			visual.AddTexture(ta.findRegion("cog1"), "cog1");
 			break;
 		case Cog_Shadow:
-			visual.AddTexture(ta.findRegion("cog1_shadow"));
+			visual.AddTexture(ta.findRegion("cog1_shadow"), "cog1_shadow");
 			break;
 		case Cog_n:
-			visual.AddTexture(ta.findRegion("cog_n"));
+			visual.AddTexture(ta.findRegion("cog_n"), "cog_n");
 			break;
 		default:
-			visual.AddTexture(ta.findRegion("cog1"));
+			visual.AddTexture(ta.findRegion("cog1"), "cog1");
 			break;
 		}
 		wheel.AddComponent(visual);
@@ -42,6 +42,9 @@ public class EntityFactory {
 		AbstractCollider col = new CircleCollider(wheel);
 		wheel.AddComponent(col);
 		
+		Persistable persi = new Persistable(wheel);
+		wheel.AddComponent(persi);
+		
 		return wheel;
 	}
 	
@@ -51,16 +54,16 @@ public class EntityFactory {
 		TextureAtlas ta = new TextureAtlas(Gdx.files.internal("atlas.pack"));
 		switch(type){
 		case Cog1:
-			visual.AddTexture(ta.findRegion("cog1"));
+			visual.AddTexture(ta.findRegion("cog1"), "cog1");
 			break;
 		case Cog_Shadow:
-			visual.AddTexture(ta.findRegion("cog1_shadow"));
+			visual.AddTexture(ta.findRegion("cog1_shadow"), "cog1_shadow");
 			break;
 		case Cog_n:
-			visual.AddTexture(ta.findRegion("cog_n"));
+			visual.AddTexture(ta.findRegion("cog_n"), "cog_n");
 			break;
 		default:
-			visual.AddTexture(ta.findRegion("cog1"));
+			visual.AddTexture(ta.findRegion("cog1"), "cog1");
 			break;
 		}
 		wheel.AddComponent(visual);
@@ -84,7 +87,7 @@ public class EntityFactory {
 		GameEntity plattform = new GameEntity();
 		Visual visual = new Visual(plattform);
 		TextureAtlas ta = new TextureAtlas(Gdx.files.internal("platform.pack"));
-		visual.AddTexture(ta.findRegion("texture"));
+		visual.AddTexture(ta.findRegion("texture"), "texture");
 		plattform.AddComponent(visual);
 		Pose pos = new StaticPos(plattform);
 		pos.SetXPos(x);

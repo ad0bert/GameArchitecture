@@ -13,12 +13,10 @@ public class BoxCollider extends AbstractCollider {
 
 	public BoxCollider(GameEntity e) {
 		this.entity = e;
-		ServiceLocator.GetService(CollisionSystem.class).Add(this);
 	}
 
 	public BoxCollider(BoxCollider c, GameEntity e){
 		this.entity = e;
-		ServiceLocator.GetService(CollisionSystem.class).Add(this);
 	}
 
 	@Override

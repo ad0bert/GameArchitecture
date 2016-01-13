@@ -1,7 +1,9 @@
 package game.architecture.components.collider;
 
 import game.architecture.components.Component;
+import game.architecture.engine.ServiceLocator;
 import game.architecture.entity.GameEntity;
+import game.architecture.systems.CollisionSystem;
 
 public abstract class AbstractCollider extends Component implements Collideable{
 
@@ -33,5 +35,17 @@ public abstract class AbstractCollider extends Component implements Collideable{
 	@Override
 	public boolean isCollision() {
 		return opponent != null;
+	}
+	
+	@Override
+	public void Activate(){
+		super.Activate();
+		ServiceLocator.GetService(CollisionSystem.class).Add(this);
+	}
+	
+	@Override
+	public void Deactivate(){
+		super.Deactivate();
+		ServiceLocator.GetService(CollisionSystem.class).Remove(this);
 	}
 }
